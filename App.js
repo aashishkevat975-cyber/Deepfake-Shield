@@ -6,12 +6,11 @@ export default function App() {
   const [selectedImage, setSelectedImage] = useState(null);
   const [resultText, setResultText] = useState('Deepfake Shield is Ready');
 
-  // फोटो या वीडियो चुनने का फंक्शन
   const pickImage = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     
     if (permissionResult.granted === false) {
-      Alert.alert("Permission required", "Gallery permission is needed to select photos!");
+      Alert.alert("Permission required", "Gallery permission is needed!");
       return;
     }
 
@@ -27,7 +26,6 @@ export default function App() {
     }
   };
 
-  // डीपफेक स्कैन करने का फंक्शन (यहाँ आप बाद में अपनी AI API जोड़ेंगे)
   const scanImage = () => {
     if (!selectedImage) {
       Alert.alert("Please select an image first!");
@@ -35,7 +33,6 @@ export default function App() {
     }
     setResultText('Scanning for Deepfake... Please wait.');
     
-    // अभी के लिए यह टेस्ट रिजल्ट दिखाएगा
     setTimeout(() => {
       setResultText('Result: Safe! No Deepfake detected.');
     }, 2000);
@@ -115,4 +112,3 @@ const styles = StyleSheet.create({
     marginBottom: 15,
   },
 });
-    
