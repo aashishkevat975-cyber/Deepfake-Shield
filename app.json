@@ -4,11 +4,18 @@
     "slug": "Deepfake-Shield",
     "version": "1.0.0",
     "sdkVersion": "51.0.0",
-    "platforms": ["android"],
+    "platforms": [
+      "android"
+    ],
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "android": {
       "package": "com.aashishkevat.deepfakeshield"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7e074b48-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
+      }
     }
   }
 }
