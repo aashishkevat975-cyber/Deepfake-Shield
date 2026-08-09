@@ -1,113 +1,86 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, Image, Alert, ScrollView } from 'react-native';
-import * as ImagePicker from 'expo-image-picker';
+import { StyleSheet, Text, View, TouchableOpacity, Alert } from 'react-native';
 
 export default function App() {
-  const [selectedImage, setSelectedImage] = useState(null);
   const [status, setStatus] = useState("Deepfake Shield is Ready");
-
-  const pickImage = async () => {
-    let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
-    
-    if (permissionResult.granted === false) {
-      Alert.alert("Permission required", "Gallery permission is needed!");
-      return;
-    }
-
-    let pickerResult = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-      quality: 1,
-    });
-
-    if (!pickerResult.canceled) {
-      setSelectedImage(pickerResult.assets[0].uri);
-      setStatus("Image selected. Ready to scan!");
-    }
-  };
+  const [isScanning, setIsScanning] = useState(false);
 
   const handleScan = () => {
-    if (!selectedImage) {
-      Alert.alert("Please select an image first!");
-      return;
-    }
-    setStatus("Scanning for Deepfake... Please wait!");
+    setIsScanning(true);
+    setStatus("Scanning image for Deepfake...");
+    
     setTimeout(() => {
-      setStatus("Result: Safe! No Deepfake found.");
-    }, 3000);
+      setIsScanning(false);
+      setStatus("Result: Safe! No Deepfake detected.");
+    }, 2500);
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <Text style={styles.title}>🛡️ Deepfake Shield</Text>
-      <Text style={styles.result}>{status}</Text>
-
-      {selectedImage ? (
-        <Image source={{ uri: selectedImage }} style={styles.image} />
-      ) : (
-        <View style={styles.placeholder}>
-          <Text style={styles.placeholderText}>No Image Selected</Text>
-        </View>
-      )}
-
-      <View style={styles.buttonContainer}>
-        <Button title="Select Photo from Gallery" onPress={pickImage} color="#007AFF" />
+      
+      <View style={styles.card}>
+        <Text style={styles.result}>{status}</Text>
       </View>
 
-      <View style={styles.buttonContainer}>
-        <Button title="Scan My Image" onPress={handleScan} color="#34C759" />
-      </View>
-    </ScrollView>
+      <TouchableOpacity 
+        style={[styles.button, isScanning && styles.buttonDisabled]} 
+        onPress={handleScan}
+        disabled={isScanning}
+      >
+        <Text style={styles.buttonText}>
+          {isScanning ? "Please Wait..." : "Scan Image Now"}
+        </Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flexGrow: 1,
+    flex: 1,
     backgroundColor: '#0f172a',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: 'bold',
-    color: '#fff',
-    marginBottom: 10,
-    marginTop: 20,
+    color: '#ffffff',
+    marginBottom: 30,
+  },
+  card: {
+    width: '100%',
+    maxWidth: 300,
+    backgroundColor: '#1e293b',
+    padding: 20,
+    borderRadius: 15,
+    alignItems: 'center',
+    marginBottom: 30,
+    borderWidth: 1,
+    borderColor: '#334155',
   },
   result: {
     fontSize: 16,
-    color: '#94a3b8',
-    marginBottom: 20,
+    color: '#38bdf8',
     textAlign: 'center',
+    fontWeight: '600',
   },
-  image: {
-    width: 220,
-    height: 220,
-    borderRadius: 12,
-    marginBottom: 20,
-    borderWidth: 2,
-    borderColor: '#38bdf8',
-  },
-  placeholder: {
-    width: 220,
-    height: 220,
-    borderRadius: 12,
-    backgroundColor: '#1e293b',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 20,
-    borderWidth: 2,
-    borderColor: '#334155',
-  },
-  placeholderText: {
-    color: '#64748b',
-    fontSize: 14,
-  },
-  buttonContainer: {
+  button: {
     width: '100%',
-    maxWidth: 240,
-    marginBottom: 15,
+    maxWidth: 300,
+    backgroundColor: '#2563eb',
+    padding: 15,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  buttonDisabled: {
+    backgroundColor: '#475569',
+  },
+  buttonText: {
+    color: '#ffffff',
+    fontSize: 16,
+    fontWeight: 'bold',
   },
 });
