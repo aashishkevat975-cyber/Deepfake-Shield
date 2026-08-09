@@ -3,6 +3,8 @@
     "name": "Deepfake Shield",
     "slug": "Deepfake-Shield",
     "version": "1.0.0",
+    "sdkVersion": "51.0.0",
+    "platforms": ["android"],
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "android": {
@@ -10,4 +12,3 @@
     }
   }
 }
-
