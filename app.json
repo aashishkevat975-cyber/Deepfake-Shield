@@ -1,22 +1,25 @@
 {
-  "cli": {
-    "version": ">= 10.0.0"
-  },
-  "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal"
+  "expo": {
+    "name": "Deepfake Shield",
+    "slug": "deepfake-shield",
+    "version": "1.0.0",
+    "sdkVersion": "51.0.0",
+    "owner": "aashishkevat975s-team",
+    "platforms": [
+      "android"
+    ],
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "com.aashishkevat.deepfakeshield"
     },
-    "preview": {
-      "distribution": "internal"
+    "splash": {
+      "backgroundColor": "#ffffff"
     },
-    "production": {
-      "android": {
-        "buildType": "app-bundle"
+    "extra": {
+      "eas": {
+        "projectId": "d7f65d89-caf6-4a29-86f8-6d28edcbf48e"
       }
     }
-  },
-  "submit": {
-    "production": {}
   }
 }
