@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Deepfake Shield</Text>
+      <Text style={styles.title}>Fraud Face Detector</Text>
       
       <View style={styles.box}>
         {image && <Image source={{ uri: image }} style={styles.previewImage} />}
@@ -76,10 +76,11 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontSize: 28,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#FFFFFF',
     marginBottom: 20,
+    textAlign: 'center',
   },
   box: {
     width: '100%',
