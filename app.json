@@ -1,10 +1,9 @@
 {
   "expo": {
-    "name": "Fraud-Face-Detector" 
-    "slug":"Fraud-Face-Detector"
+    "name": "Fraud-Face-Detector",
+    "slug": "Fraud-Face-Detector",
     "version": "1.0.0",
     "sdkVersion": "51.0.0",
-    "owner": "deepfaketeam",
     "platforms": [
       "android"
     ],
@@ -15,11 +14,6 @@
     },
     "splash": {
       "backgroundColor": "#121212"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "c68b17da-d801-4863-8c47-63afb4a3605f"
-      }
     }
   }
 }
