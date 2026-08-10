@@ -4,7 +4,6 @@
     "slug": "deepfake-shield",
     "version": "1.0.0",
     "sdkVersion": "51.0.0",
-    "owner": "deepfaketeam",
     "platforms": [
       "android"
     ],
@@ -13,14 +12,6 @@
     "android": {
       "package": "com.aashishkevat.deepfakeshield"
     },
-    "plugins": [
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "The app accesses your photos to let you scan them for deepfakes."
-        }
-      ]
-    ],
     "extra": {
       "eas": {
         "projectId": "c68b17da-d801-4863-8c47-63afb4a3605f"
