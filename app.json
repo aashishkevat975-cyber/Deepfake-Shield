@@ -13,6 +13,9 @@
     "android": {
       "package": "com.aashishkevat.deepfakeshield"
     },
+    "splash": {
+      "backgroundColor": "#121212"
+    },
     "extra": {
       "eas": {
         "projectId": "c68b17da-d801-4863-8c47-63afb4a3605f"
