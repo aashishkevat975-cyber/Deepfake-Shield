@@ -4,12 +4,11 @@ import * as ImagePicker from 'expo-image-picker';
 
 export default function App() {
   const [image, setImage] = useState(null);
-  const [status, setStatus] = useState('Tap below to choose a photo for AI Deepfake Scan');
+  const [status, setStatus] = useState('Tap below to choose a photo');
   const [isLoading, setIsLoading] = useState(false);
   const [scanResult, setScanResult] = useState(null);
 
   const pickImageAndScan = async () => {
-    // गैलरी की परमिशन और फोटो चुनने के लिए
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.Images,
       allowsEditing: true,
@@ -19,16 +18,15 @@ export default function App() {
 
     if (!result.canceled) {
       setImage(result.assets[0].uri);
-      setStatus('Analyzing image for AI manipulation...');
+      setStatus('Analyzing image...');
       setIsLoading(true);
       setScanResult(null);
 
-      // 3 सेकंड की नकली AI स्कैनिंग प्रोसेस
       setTimeout(() => {
         setIsLoading(false);
         const isFake = Math.random() > 0.5;
         if (isFake) {
-          setStatus('⚠️ Warning: Potential Deepfake Detected! (97.2%)');
+          setStatus('⚠️ Warning: Potential Deepfake Detected!');
           setScanResult('deepfake');
         } else {
           setStatus('✅ Result: Authentic Image. Safe to use.');
@@ -62,7 +60,7 @@ export default function App() {
         disabled={isLoading}
       >
         <Text style={styles.buttonText}>
-          {isLoading ? 'Scanning Photo...' : 'CHOOSE PHOTO & SCAN'}
+          {isLoading ? 'Scanning...' : 'CHOOSE PHOTO & SCAN'}
         </Text>
       </TouchableOpacity>
     </View>
@@ -117,7 +115,6 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 10,
-    elevation: 3,
   },
   buttonDisabled: {
     backgroundColor: '#555555',
