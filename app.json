@@ -1,147 +1,25 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, Alert, Platform } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import * as ImagePicker from 'expo-image-picker'; // 1. यह पैकेज इम्पोर्ट करें
-
-export default function App() {
-  const [status, setStatus] = useState('Ready to scan.');
-  const [isLoading, setIsLoading] = useState(false);
-  const [scanResult, setScanResult] = useState(null);
-
-  // 2. यह फंक्शन गैलरी खोलेगा और फोटो चुनेगा
-  const pickImageAndScan = async () => {
-    // फोन की गैलरी एक्सेस करने की परमिशन मांगें
-    const { status: permissionStatus } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-    if (permissionStatus !== 'granted') {
-      Alert.alert('Sorry, we need camera roll permissions to make this work!');
-      return;
-    }
-
-    // गैलरी से इमेज चुनें
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images, // सिर्फ इमेज चुनें
-      allowsEditing: true, // चुनने से पहले क्रॉप/एडिट करने का ऑप्शन
-      aspect: [1, 1], // वर्गाकार (Square) रेश्यो
-      quality: 1, // उच्च गुणवत्ता
-    });
-
-    if (!result.canceled) {
-      // फोटो चुन ली गई है, अब स्कैनिंग शुरू करें
-      const selectedImageUri = result.assets[0].uri;
-      startScanning(selectedImageUri);
-    } else {
-      // यूजर ने फोटो चुनना रद्द कर दिया
-      setStatus('Scan cancelled.');
-      setScanResult(null);
-    }
-  };
-
-  // 3. यह फंक्शन नकली स्कैनिंग का सिमुलेशन करेगा (बाद में यहाँ असली API लगेगी)
-  const startScanning = (imageUri) => {
-    setStatus('Scanning... Please wait!');
-    setIsLoading(true);
-    setScanResult(null);
-
-    // यहाँ हम असली API कॉल का इंतज़ार करेंगे
-    // अभी के लिए 3 सेकंड का टाइमर लगा रहे हैं
-    setTimeout(() => {
-      setIsLoading(false);
-      // **महत्वपूर्ण:** यहाँ आप अपना असली AI लॉजिक या API का रिजल्ट चेक करेंगे
-      const isDeepfake = Math.random() > 0.5; // 50% चांस है कि यह डीपफेक होगा
-
-      if (isDeepfake) {
-        setStatus('⚠️ Alert: Potential Deepfake Detected!');
-        setScanResult('deepfake');
-      } else {
-        setStatus('Result: Safe! No Deepfake found.');
-        setScanResult('safe');
+{
+  "expo": {
+    "name": "Deepfake Shield",
+    "slug": "deepfake-shield",
+    "version": "1.0.0",
+    "sdkVersion": "51.0.0",
+    "owner": "deepfaketeam",
+    "platforms": [
+      "android"
+    ],
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "android": {
+      "package": "com.aashishkevat.deepfakeshield"
+    },
+    "splash": {
+      "backgroundColor": "#ffffff"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c68b17da-d801-4863-8c47-63afb4a3605f"
       }
-    }, 3000); // 3 सेकंड का समय
-  };
-
-  // UI का हिस्सा (स्क्रीन कैसा दिखेगा)
-  return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Ionicons name="shield-checkmark" size={48} color="#64B5F6" />
-        <Text style={styles.title}>Deepfake Shield</Text>
-      </View>
-
-      <Text style={[
-        styles.status,
-        scanResult === 'deepfake' ? styles.statusDeepfake : null,
-        scanResult === 'safe' ? styles.statusSafe : null
-      ]}>
-        {status}
-      </Text>
-
-      {isLoading && <ActivityIndicator size="large" color="#64B5F6" style={{ marginVertical: 20 }} />}
-
-      {/* 4. यह बटन अब गैलरी खोलेगा */}
-      <TouchableOpacity
-        style={[styles.button, isLoading ? styles.buttonDisabled : null]}
-        onPress={pickImageAndScan}
-        disabled={isLoading}
-      >
-        <Text style={styles.buttonText}>
-          {isLoading ? 'Processing...' : 'SCAN MY IMAGE'}
-        </Text>
-      </TouchableOpacity>
-    </View>
-  );
+    }
+  }
 }
-
-// स्टाइलशीट
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#121212', // डार्क थीम
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 20,
-  },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 30,
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: '#FFFFFF',
-    marginLeft: 15,
-  },
-  status: {
-    fontSize: 18,
-    color: '#B0BEC5',
-    textAlign: 'center',
-    marginVertical: 20,
-    minHeight: 60,
-  },
-  statusSafe: {
-    color: '#4CAF50', // हरा रंग (Safe)
-    fontWeight: 'bold',
-  },
-  statusDeepfake: {
-    color: '#F44336', // लाल रंग (Danger)
-    fontWeight: 'bold',
-  },
-  button: {
-    backgroundColor: '#2196F3',
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 8,
-    elevation: 3,
-    marginVertical: 20,
-  },
-  buttonDisabled: {
-    backgroundColor: '#757575', // ग्रे रंग (Disabled)
-  },
-  buttonText: {
-    color: '#FFFFFF',
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-});
