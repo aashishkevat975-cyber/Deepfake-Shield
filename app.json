@@ -4,6 +4,7 @@
     "slug": "Fraud-Face-Detector",
     "version": "1.0.0",
     "sdkVersion": "51.0.0",
+    "owner": "aashish-detectors-team",
     "platforms": [
       "android"
     ],
