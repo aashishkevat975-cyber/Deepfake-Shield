@@ -1,7 +1,4 @@
 {
-  "cli": {
-    "projectId": "aashish-project-id"
-  },
   "build": {
     "preview": {
       "android": {
