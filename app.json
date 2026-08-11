@@ -22,6 +22,14 @@
         {
           "photosPermission": "The app needs access to your photos to scan for deepfakes."
         }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "backgroundColor": "#ffffff",
+          "image": "./assets/splash.png",
+          "imageWidth": 200
+        }
       ]
     ],
     "sdkVersion": "51.0.0",
