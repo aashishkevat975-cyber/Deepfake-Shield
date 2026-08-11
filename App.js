@@ -10,10 +10,7 @@ export default function App() {
   const [scanResult, setScanResult] = useState(null);
   const [history, setHistory] = useState([]);
   
-  // Dark Mode का स्टेट
   const [isDarkMode, setIsDarkMode] = useState(true);
-
-  // Switch को बदलने का फंक्शन
   const toggleSwitch = () => setIsDarkMode(previousState => !previousState);
 
   const processImage = (uri) => {
@@ -37,7 +34,6 @@ export default function App() {
   };
 
   return (
-    // यहाँ बैकग्राउंड कलर अब स्टेट पर निर्भर करेगा
     <View style={[styles.container, { backgroundColor: isDarkMode ? '#121212' : '#F5F5F5' }]}>
       <ScrollView contentContainerStyle={styles.content}>
         
@@ -46,7 +42,7 @@ export default function App() {
             <Text style={[styles.title, { color: isDarkMode ? '#FFF' : '#000' }]}>Fraud Face Detector</Text>
             <TouchableOpacity style={styles.button} onPress={pickImage}><Text style={styles.buttonText}>PICK PHOTO</Text></TouchableOpacity>
             {isLoading && <ActivityIndicator size="large" color="#2196F3" />}
-            <Text style={styles.text}>{status}</Text>
+            <Text style={[styles.text, { color: isDarkMode ? '#AAA' : '#333' }]}>{status}</Text>
           </View>
         )}
 
@@ -68,7 +64,6 @@ export default function App() {
         )}
       </ScrollView>
 
-      {/* नेविगेशन बार यहाँ है */}
       <View style={styles.navBar}>
         <TouchableOpacity onPress={() => setCurrentView('scan')}><Text style={styles.navText}>🔍 Scan</Text></TouchableOpacity>
         <TouchableOpacity onPress={() => setCurrentView('settings')}><Text style={styles.navText}>⚙️ Settings</Text></TouchableOpacity>
@@ -88,6 +83,6 @@ const styles = StyleSheet.create({
   navBar: { flexDirection: 'row', justifyContent: 'space-around', padding: 20, borderTopWidth: 1, borderColor: '#333', backgroundColor: '#1E1E1E' },
   navText: { color: '#FFF', fontSize: 16 },
   card: { backgroundColor: '#333', padding: 15, borderRadius: 10, width: '100%', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  text: { color: '#AAA', marginTop: 10 }
+  text: { marginTop: 10 }
 });
-                                         
+          
