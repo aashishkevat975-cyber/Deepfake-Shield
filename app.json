@@ -2,7 +2,7 @@
   "expo": {
     "owner": "aashishkevat2s-team",
     "name": "Deepfake Shield",
-    "slug": "Deepfake-Shield",
+    "slug": "deepfake-shield",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
