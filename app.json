@@ -2,29 +2,41 @@
   "expo": {
     "name": "Fraud Face Detector",
     "slug": "fraud-face-detector",
-    "version": "1.0.0",
-    "sdkVersion": "51.0.0",
-    "owner": "aashish-detectors-team",
-    "platforms": [
-      "android"
-    ],
+    "version": "1.0.5",
     "orientation": "portrait",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#121212"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
     "android": {
-      "package": "com.aashishkevat.deepfakeshield",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#121212"
+      },
+      "package": "com.aashish.fraudfacedetector",
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",
-        "WRITE_EXTERNAL_STORAGE"
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_MEDIA_IMAGES"
       ]
     },
-    "splash": {
-      "backgroundColor": "#121212"
+    "web": {
+      "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "cf9fcf83-af5e-421c-9a72-f89e9ad1fc9c"
-      }
-    }
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app needs access to your photos to scan for deepfakes."
+        }
+      ]
+    ]
   }
 }
