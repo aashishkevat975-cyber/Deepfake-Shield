@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, Image, ScrollView } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, Image, ScrollView, Share } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
 export default function App() {
@@ -8,6 +8,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [scanResult, setScanResult] = useState(null);
   const [confidence, setConfidence] = useState(null);
+  const [history, setHistory] = useState([]);
 
   // 1. Gallery Se Photo Chunne Ka Function
   const pickImageFromGallery = async () => {
@@ -42,7 +43,7 @@ export default function App() {
     }
   };
 
-  // Common Processing & Analysis Logic
+  // Processing & Analysis Logic with History
   const processImage = (uri) => {
     setImage(uri);
     setStatus('Analyzing facial patterns & metadata...');
@@ -55,16 +56,38 @@ export default function App() {
       const isFake = Math.random() > 0.5;
       const randomConfidence = (Math.random() * (99 - 88) + 88).toFixed(1);
       
+      let resText = '';
       if (isFake) {
-        setStatus('⚠️ Warning: Potential Deepfake / Fraudulent Face Detected!');
+        resText = '⚠️ Warning: Potential Deepfake / Fraudulent Face Detected!';
         setScanResult('deepfake');
-        setConfidence(randomConfidence);
       } else {
-        setStatus('✅ Result: Authentic Image. No tampering found.');
+        resText = '✅ Result: Authentic Image. No tampering found.';
         setScanResult('safe');
-        setConfidence(randomConfidence);
       }
+      
+      setStatus(resText);
+      setConfidence(randomConfidence);
+
+      // Add to History
+      const newEntry = {
+        uri: uri,
+        result: resText,
+        score: randomConfidence + '%',
+        time: new Date().toLocaleTimeString()
+      };
+      setHistory(prev => [newEntry, ...prev.slice(0, 4)]); // Keep last 5 items
     }, 3000);
+  };
+
+  // 3. Share Result Function
+  const shareResult = async () => {
+    try {
+      await Share.share({
+        message: `Fraud Face Detector Report:\n${status}\nConfidence Score: ${confidence}%\nChecked via Fraud Face Detector App.`,
+      });
+    } catch (error) {
+      alert(error.message);
+    }
   };
 
   return (
@@ -114,7 +137,32 @@ export default function App() {
         >
           <Text style={styles.buttonText}>🖼️ CHOOSE FROM GALLERY</Text>
         </TouchableOpacity>
+
+        {scanResult && !isLoading && (
+          <TouchableOpacity 
+            style={[styles.button, styles.shareButton]} 
+            onPress={shareResult}
+          >
+            <Text style={styles.buttonText}>📤 SHARE RESULT</Text>
+          </TouchableOpacity>
+        )}
       </View>
+
+      {/* History Section */}
+      {history.length > 0 && (
+        <View style={styles.historyContainer}>
+          <Text style={styles.historyTitle}>Recent Scans History</Text>
+          {history.map((item, index) => (
+            <View key={index} style={styles.historyCard}>
+              <Image source={{ uri: item.uri }} style={styles.historyImage} />
+              <View style={{ flex: 1, marginLeft: 10 }}>
+                <Text style={styles.historyText} numberOfLines={2}>{item.result}</Text>
+                <Text style={styles.historySubText}>Score: {item.score} | {item.time}</Text>
+              </View>
+            </View>
+          ))}
+        </View>
+      )}
     </ScrollView>
   );
 }
@@ -124,8 +172,8 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     backgroundColor: '#121212',
     alignItems: 'center',
-    justifyContent: 'center',
     padding: 20,
+    paddingTop: 50,
   },
   title: {
     fontSize: 24,
@@ -146,13 +194,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   placeholderBox: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
+    width: 130,
+    height: 130,
+    borderRadius: 65,
     backgroundColor: '#1E1E1E',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 20,
+    marginBottom: 15,
     borderWidth: 2,
     borderColor: '#333333',
   },
@@ -161,18 +209,18 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
   previewImage: {
-    width: 150,
-    height: 150,
-    borderRadius: 75,
-    marginBottom: 20,
+    width: 130,
+    height: 130,
+    borderRadius: 65,
+    marginBottom: 15,
     borderWidth: 2,
     borderColor: '#2196F3',
   },
   status: {
-    fontSize: 16,
+    fontSize: 15,
     color: '#B0BEC5',
     textAlign: 'center',
-    lineHeight: 24,
+    lineHeight: 22,
     paddingHorizontal: 10,
   },
   statusSafe: {
@@ -186,28 +234,67 @@ const styles = StyleSheet.create({
   confidenceText: {
     fontSize: 14,
     color: '#FFC107',
-    marginTop: 10,
+    marginTop: 8,
     fontWeight: 'bold',
   },
   buttonContainer: {
     width: '100%',
-    gap: 15,
+    gap: 12,
   },
   button: {
     backgroundColor: '#2196F3',
-    paddingVertical: 15,
+    paddingVertical: 14,
     borderRadius: 10,
     alignItems: 'center',
   },
   galleryButton: {
     backgroundColor: '#4CAF50',
   },
+  shareButton: {
+    backgroundColor: '#FF9800',
+  },
   buttonDisabled: {
     backgroundColor: '#555555',
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 15,
     fontWeight: 'bold',
   },
+  historyContainer: {
+    width: '100%',
+    marginTop: 30,
+    borderTopWidth: 1,
+    borderTopColor: '#222222',
+    paddingTop: 15,
+  },
+  historyTitle: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
+  historyCard: {
+    flexDirection: 'row',
+    backgroundColor: '#1E1E1E',
+    padding: 10,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignItems: 'center',
+  },
+  historyImage: {
+    width: 45,
+    height: 45,
+    borderRadius: 22.5,
+  },
+  historyText: {
+    color: '#DDDDDD',
+    fontSize: 12,
+  },
+  historySubText: {
+    color: '#888888',
+    fontSize: 10,
+    marginTop: 4,
+  },
 });
+    
