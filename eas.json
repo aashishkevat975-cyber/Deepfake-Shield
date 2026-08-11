@@ -1,6 +1,6 @@
 {
   "cli": {
-    "version": ">= 7.0.0"
+    "version": ">= 21.7.1"
   },
   "build": {
     "development": {
@@ -8,16 +8,11 @@
       "distribution": "internal"
     },
     "preview": {
-      "distribution": "internal",
       "android": {
         "buildType": "apk"
       }
     },
-    "production": {
-      "android": {
-        "buildType": "app-bundle"
-      }
-    }
+    "production": {}
   },
   "submit": {
     "production": {}
