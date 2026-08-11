@@ -13,6 +13,9 @@
     "userInterfaceStyle": "dark",
     "android": {
       "package": "com.aashish.fraudfacedetector",
+      "splash": {
+        "backgroundColor": "#121212"
+      },
       "permissions": [
         "CAMERA",
         "READ_EXTERNAL_STORAGE",
