@@ -1,29 +1,32 @@
 {
   "expo": {
-    "owner": "aashishkevat2s-team",
-    "name": "Deepfake Shield",
-    "slug": "deepfake-shield",
+    "name": "Fraud Face Detector",
+    "slug": "fraud-face-detector",
     "version": "1.0.0",
     "orientation": "portrait",
+    "icon": "./icon.png",
     "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.aashishkevat975.deepfakeshield"
+      "supportsTablet": true
     },
     "android": {
-      "package": "com.aashishkevat975.deepfakeshield"
+      "adaptiveIcon": {
+        "foregroundImage": "./icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.aashishkevat975.fraudfacedetector"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./icon.png"
     },
-    "sdkVersion": "51.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
     "extra": {
       "eas": {
-        "projectId": "39ddc11d-d603-4bef-ab95-cd350cd03017"
+        "projectId": "72ea23dd-4013-48f4-abff-824b13869da5"
       }
     }
   }
