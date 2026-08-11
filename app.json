@@ -11,7 +11,12 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "android": {
-      "package": "com.aashishkevat.deepfakeshield"
+      "package": "com.aashishkevat.deepfakeshield",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "splash": {
       "backgroundColor": "#121212"
