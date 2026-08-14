@@ -6,11 +6,10 @@ import * as ImagePicker from 'expo-image-picker';
 export default function App() {
   const [url, setUrl] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [currentScreen, setCurrentScreen] = useState('home'); // 'home', 'settings', या 'bankList'
+  const [currentScreen, setCurrentScreen] = useState('home');
   const [scamLink, setScamLink] = useState('');
   const [linkResult, setLinkResult] = useState('');
 
-  // 1. गैलरी से फोटो चुनने का फंक्शन
   const pickImageFromGallery = async () => {
     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (permissionResult.granted === false) {
@@ -27,12 +26,12 @@ export default function App() {
     }
   };
 
-  // 2. स्कैम लिंक जाँच करने का फीचर
   const checkScamLink = () => {
     if (!scamLink.trim()) {
       alert("कृपया पहले कोई लिंक या मैसेज यहाँ लिखें!");
       return;
     }
+    // यहाँ 'scamLink' बिल्कुल सही लिखा गया है
     if (scamLink.includes('http') || scamLink.includes('offer') || scamLink.includes('win') || scamLink.includes('lottery')) {
       setLinkResult('⚠️ चेतावनी: यह लिंक संदिग्ध या फ्रॉड हो सकता है! इस पर क्लिक न करें।');
     } else {
@@ -44,7 +43,6 @@ export default function App() {
     await Share.share({ message: 'सावधान! ऑनलाइन फ्रॉड, डीपफेक और स्कैम से बचने के लिए "Fraud Face Detector" ऐप इस्तेमाल करें।' });
   };
 
-  // 3. अगर URL सेट है, तो वेबसाइट क्रोम पर नहीं बल्कि ऐप के अंदर ही WebView में खुलेगी
   if (url) {
     return (
       <View style={{ flex: 1, backgroundColor: '#0f172a', paddingTop: 40 }}>
@@ -58,7 +56,6 @@ export default function App() {
     );
   }
 
-  // 4. सेटिंग्स पेज
   if (currentScreen === 'settings') {
     return (
       <ScrollView style={styles.container}>
@@ -77,18 +74,17 @@ export default function App() {
 
         <View style={styles.settingCard}>
           <Text style={styles.settingTitle}>🔒 Privacy & Security Policy</Text>
-          <Text style={styles.settingDesc}>आपका कोई भी डेटा या फोटो हमारे सर्वर पर सेव नहीं किया जाता है। आपकी सुरक्षा हमारी प्राथमिकता है।</Text>
+          <Text style={styles.settingDesc}>आपका कोई भी डेटा या फोटो हमारे सर्वर पर सेव नहीं किया जाता है।</Text>
         </View>
 
         <TouchableOpacity style={styles.settingCard} onPress={onShareApp}>
           <Text style={styles.settingTitle}>⭐ Rate Our App</Text>
-          <Text style={styles.settingDesc}>प्ले स्टोर पर हमें 5-स्टार रेटिंग दें और देश को सुरक्षित बनाएं</Text>
+          <Text style={styles.settingDesc}>प्ले स्टोर पर हमें 5-स्टार रेटिंग दें</Text>
         </TouchableOpacity>
       </ScrollView>
     );
   }
 
-  // 5. बैंक ब्लॉक लिस्ट पेज
   if (currentScreen === 'bankList') {
     return (
       <ScrollView style={styles.container}>
@@ -99,7 +95,7 @@ export default function App() {
         </View>
         
         <Text style={[styles.headerTitle, {marginVertical: 20}]}>🏦 बैंक खाता/कार्ड ब्लॉक नंबर</Text>
-        <Text style={{color: '#cbd5e1', marginBottom: 15, fontSize: 13}}>फ्रॉड होने पर तुरंत अपने बैंक के नंबर पर कॉल करके खाता ब्लॉक करवाएं:</Text>
+        <Text style={{color: '#cbd5e1', marginBottom: 15, fontSize: 13}}>फ्रॉड होने पर तुरंत अपने बैंक के नंबर पर कॉल करें:</Text>
 
         <TouchableOpacity style={styles.bankCard} onPress={() => Linking.openURL('tel:1800112211')}>
           <Text style={styles.bankName}>SBI (स्टेट बैंक ऑफ इंडिया)</Text>
@@ -124,10 +120,8 @@ export default function App() {
     );
   }
 
-  // 6. मुख्य होम स्क्रीन
   return (
     <ScrollView style={styles.container}>
-      {/* टॉप बार और सेटिंग्स आइकॉन */}
       <View style={styles.topBar}>
         <View>
           <Text style={styles.headerTitle}>Fraud Face Detector</Text>
@@ -138,14 +132,12 @@ export default function App() {
         </TouchableOpacity>
       </View>
 
-      {/* सुरक्षा चेकलिस्ट */}
       <View style={styles.checklist}>
         <Text style={{color:'#fff', fontWeight:'bold', marginBottom:10}}>🛡️ सुरक्षा चेकलिस्ट:</Text>
         <Text style={styles.checkText}>✅ अनजान लिंक या APK फाइल डाउनलोड न करें</Text>
         <Text style={styles.checkText}>✅ किसी को भी अपना OTP या UPI पिन न बताएं</Text>
       </View>
 
-      {/* संदिग्ध लिंक चेकर बॉक्स */}
       <View style={styles.scannerBox}>
         <Text style={{color: '#38bdf8', fontWeight: 'bold', marginBottom: 5}}>🔍 संदिग्ध लिंक / मैसेज जाँच करें:</Text>
         <TextInput
@@ -161,7 +153,6 @@ export default function App() {
         {linkResult ? <Text style={styles.resultText}>{linkResult}</Text> : null}
       </View>
 
-      {/* गैलरी से फोटो चुनने और स्कैन करने वाला बटन */}
       <TouchableOpacity style={styles.orangeBtn} onPress={pickImageFromGallery}>
         <Text style={styles.btnText}>📷 गैलरी से फोटो/स्क्रीनशॉट स्कैन करें</Text>
       </TouchableOpacity>
@@ -173,22 +164,18 @@ export default function App() {
         </View>
       )}
 
-      {/* यह बटन अब वेबसाइट को क्रोम पर नहीं, बल्कि सीधे आपके ऐप के अंदर (In-App WebView) खोलेगा */}
       <TouchableOpacity style={styles.blueBtn} onPress={() => setUrl('https://cybercrime.gov.in')}>
         <Text style={styles.btnText}>🌐 राष्ट्रीय साइबर क्राइम पोर्टल (In-App)</Text>
       </TouchableOpacity>
 
-      {/* इमरजेंसी बैंक ब्लॉक लिस्ट */}
       <TouchableOpacity style={styles.purpleBtn} onPress={() => setCurrentScreen('bankList')}>
         <Text style={styles.btnText}>🏦 बैंक खाता और कार्ड ब्लॉक नंबर</Text>
       </TouchableOpacity>
 
-      {/* ऐप शेयर बटन */}
       <TouchableOpacity style={styles.greenBtn} onPress={onShareApp}>
         <Text style={styles.btnText}>🔗 देशहित में ऐप दोस्तों को शेयर करें</Text>
       </TouchableOpacity>
       
-      {/* 1930 हेल्पलाइन का सीधा कॉलिंग बटन */}
       <TouchableOpacity style={styles.redCard} onPress={() => Linking.openURL('tel:1930')}>
         <Text style={styles.cardTitle}>📞 1930 - साइबर हेल्पलाइन (तत्काल कॉल)</Text>
         <Text style={styles.cardSub}>फ्रॉड होने पर एक क्लिक में पुलिस को कॉल करें</Text>
@@ -216,11 +203,12 @@ const styles = StyleSheet.create({
   blueBtn: { backgroundColor: '#0284c7', padding: 18, borderRadius: 10, marginBottom: 10 },
   purpleBtn: { backgroundColor: '#7c3aed', padding: 18, borderRadius: 10, marginBottom: 10 },
   greenBtn: { backgroundColor: '#059669', padding: 18, borderRadius: 10, marginBottom: 20 },
-  redCard: { backgroundColor: '#b91c1c', padding: 18, borderRadius: 10, marginBottom: 20, borderRadius: 10 },
+  redCard: { backgroundColor: '#b91c1c', padding: 18, borderRadius: 10, marginBottom: 20 },
   btnText: { color: '#fff', textAlign: 'center', fontWeight: 'bold', fontSize: 15 },
   cardTitle: { color: '#fff', fontSize: 16, fontWeight: 'bold' },
   cardSub: { color: '#fee2e2', fontSize: 12 },
   settingCard: { backgroundColor: '#1e293b', padding: 15, borderRadius: 10, marginBottom: 15 },
+  settingCardTitle: { color: '#38bdf8', fontSize: 16, fontWeight: 'bold', marginBottom: 5 },
   settingTitle: { color: '#38bdf8', fontSize: 16, fontWeight: 'bold', marginBottom: 5 },
   settingDesc: { color: '#cbd5e1', fontSize: 13 },
   bankCard: { backgroundColor: '#1e293b', padding: 15, borderRadius: 10, marginBottom: 12, borderLeftWidth: 5, borderLeftColor: '#7c3aed' },
@@ -230,4 +218,4 @@ const styles = StyleSheet.create({
   previewImage: { width: 200, height: 200, borderRadius: 10 },
   footer: { textAlign: 'center', color: '#475569', marginTop: 10, marginBottom: 40 }
 });
-    
+                   
