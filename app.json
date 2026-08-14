@@ -20,14 +20,28 @@
         "foregroundImage": "./icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.aashishkevat975.fraudfacedetector"
+      "package": "com.aashishkevat975.fraudfacedetector",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "INTERNET"
+      ]
     },
     "web": {
       "favicon": "./icon.png"
     },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "The app accesses your photos to let you scan scam screenshots."
+        }
+      ]
+    ],
     "extra": {
       "eas": {
-        "projectId": "72ea23dd-4013-48f4-abff-824b13869da5"
+        "projectId": "72ea23dd-4013-48f4-abff-824b13869ef4"
       }
     }
   }
