@@ -30,7 +30,7 @@ export default function App() {
         
         <Text style={styles.headerTitle}>⚙️ सेटिंग्स & प्राइवेसी</Text>
         
-        {/* Support Us / Donate बटन (आपकी UPI आईडी के साथ) */}
+        {/* Support Us / Donate बटन */}
         <TouchableOpacity style={styles.supportCard} onPress={() => Linking.openURL('upi://pay?pa=Aashishkevat975@ybl&pn=Aashish%20Kevat&cu=INR')}>
           <Text style={styles.supportTitle}>❤️ Support Us (सहयोग करें)</Text>
           <Text style={{color:'#cbd5e1', fontSize:12, marginTop:2}}>Aashishkevat975@ybl पर सहयोग देकर इस ऐप को आगे बढ़ाएं।</Text>
@@ -60,7 +60,7 @@ export default function App() {
     );
   }
 
-  // होम पेज (सभी एक्टिव बटन्स के साथ)
+  // होम पेज
   return (
     <ScrollView style={styles.container}>
       <View style={styles.topBar}>
@@ -108,15 +108,9 @@ export default function App() {
         <TouchableOpacity style={[styles.actionBtn, {backgroundColor:'#059669'}]} onPress={submitReport}>
           <Text style={{color:'#fff', fontWeight:'bold'}}>सुरक्षित रखें</Text>
         </TouchableOpacity>
-          <View style={styles.box}>
-        <Text style={styles.sectionTitle}>📝 फ्रॉड रिपोर्ट दर्ज करें</Text>
-        <TextInput style={styles.input} placeholder="डिटेल्स लिखें..." placeholderTextColor="#94a3b8" />
-        <TouchableOpacity style={styles.actionBtn}>
-          <Text style={{color:'#fff', fontWeight:'bold'}}>सबमिट करें</Text>
-        </TouchableOpacity>
       </View>
 
-      {/* --- नया जोड़ा गया फीचर्स बॉक्स --- */}
+      {/* --- फीचर्स बॉक्स --- */}
       <View style={{ padding: 15, backgroundColor: '#1e293b', borderRadius: 10, margin: 15 }}>
         <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#38bdf8', marginBottom: 5 }}>🚀 यह ऐप कैसे काम करता है?</Text>
         <Text style={{ fontSize: 13, color: '#cbd5e1', lineHeight: 20 }}>
@@ -128,12 +122,11 @@ export default function App() {
         </Text>
       </View>
 
-      </ScrollView>
+    </ScrollView>
   );
 }
 
- const styles = StyleSheet.create({
-   
+const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0f172a', padding: 20, paddingTop: 50 },
   topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
   headerTitle: { fontSize: 20, color: '#38bdf8', fontWeight: 'bold' },
@@ -159,3 +152,4 @@ export default function App() {
   bulletPoint: { color: '#cbd5e1', fontSize: 13, marginBottom: 5 },
   notesFooter: { color: '#38bdf8', marginTop: 15, fontStyle: 'italic' }
 });
+          
