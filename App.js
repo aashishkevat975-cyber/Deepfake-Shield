@@ -128,15 +128,12 @@ export default function App() {
         </Text>
       </View>
 
-    </ScrollView>
+      </ScrollView>
   );
 }
 
-
-  );
-}
-
-const styles = StyleSheet.create({
+ const styles = StyleSheet.create({
+   
   container: { flex: 1, backgroundColor: '#0f172a', padding: 20, paddingTop: 50 },
   topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 },
   headerTitle: { fontSize: 20, color: '#38bdf8', fontWeight: 'bold' },
