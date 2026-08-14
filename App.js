@@ -108,25 +108,31 @@ export default function App() {
         <TouchableOpacity style={[styles.actionBtn, {backgroundColor:'#059669'}]} onPress={submitReport}>
           <Text style={{color:'#fff', fontWeight:'bold'}}>सुरक्षित रखें</Text>
         </TouchableOpacity>
-      </View>  <View style={styles.box}>
-    {/* आपका पुराना कोड यहाँ है */}
-  </View>
+          <View style={styles.box}>
+        <Text style={styles.sectionTitle}>📝 फ्रॉड रिपोर्ट दर्ज करें</Text>
+        <TextInput style={styles.input} placeholder="डिटेल्स लिखें..." placeholderTextColor="#94a3b8" />
+        <TouchableOpacity style={styles.actionBtn}>
+          <Text style={{color:'#fff', fontWeight:'bold'}}>सबमिट करें</Text>
+        </TouchableOpacity>
+      </View>
 
-  {/* --- नया जोड़ा गया हिस्सा --- */}
-  <View style={{ padding: 15, backgroundColor: '#1e293b', borderRadius: 10, margin: 15 }}>
-    <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#38bdf8', marginBottom: 5 }}>🚀 यह ऐप कैसे काम करता है?</Text>
-    <Text style={{ fontSize: 13, color: '#cbd5e1', lineHeight: 20 }}>
-      1. 🛡️ फेस डिटेक्शन और फ्रॉड अलर्ट{'\n'}
-      2. 🔒 सुरक्षित साइबर टूल्स (एंटी-वायरस/वीपीएन){'\n'}
-      3. 💡 डेली सेफ्टी टिप्स और जानकारी{'\n'}
-      4. 🔗 स्मार्ट शेयरिंग फीचर्स{'\n'}
-      5. ⚙️ कस्टम सेटिंग्स मैनेज करें
-    </Text>
-  </View>
+      {/* --- नया जोड़ा गया फीचर्स बॉक्स --- */}
+      <View style={{ padding: 15, backgroundColor: '#1e293b', borderRadius: 10, margin: 15 }}>
+        <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#38bdf8', marginBottom: 5 }}>🚀 यह ऐप कैसे काम करता है?</Text>
+        <Text style={{ fontSize: 13, color: '#cbd5e1', lineHeight: 20 }}>
+          1. 🛡️ फेस डिटेक्शन और फ्रॉड अलर्ट{'\n'}
+          2. 🔒 सुरक्षित साइबर टूल्स (एंटी-वायरस/वीपीएन){'\n'}
+          3. 💡 डेली सेफ्टी टिप्स और जानकारी{'\n'}
+          4. 🔗 स्मार्ट शेयरिंग फीचर्स{'\n'}
+          5. ⚙️ कस्टम सेटिंग्स मैनेज करें
+        </Text>
+      </View>
 
-</ScrollView>
-          
     </ScrollView>
+  );
+}
+
+
   );
 }
 
