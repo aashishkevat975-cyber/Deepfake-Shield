@@ -1,20 +1,11 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView, TextInput, Alert, Linking, Share } from 'react-native';
-import * as WebBrowser from 'expo-web-browser';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
   const [scamInput, setScamInput] = useState('');
   const [aiResult, setAiResult] = useState('');
   const [reportText, setReportText] = useState('');
-
-  const openWebBrowser = async (url) => {
-    try { 
-      await WebBrowser.openBrowserAsync(url); 
-    } catch (e) { 
-      Linking.openURL(url); 
-    }
-  };
 
   const runAiCheck = () => {
     if (!scamInput.trim()) {
@@ -66,7 +57,7 @@ export default function App() {
 
       <View style={styles.box}>
         <Text style={styles.sectionTitle}>🛡️ मुख्य सुरक्षा टूल</Text>
-        <TouchableOpacity style={styles.btnBlue} onPress={() => openWebBrowser('https://cybercrime.gov.in')}>
+        <TouchableOpacity style={styles.btnBlue} onPress={() => Linking.openURL('https://cybercrime.gov.in')}>
           <Text style={styles.btnText}>🌐 साइबर पोर्टल</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.btnRed} onPress={() => Linking.openURL('tel:1930')}>
