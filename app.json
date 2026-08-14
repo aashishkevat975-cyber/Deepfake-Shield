@@ -5,27 +5,21 @@
     "owner": "aashishkevat56s-team",
     "version": "1.0.0",
     "orientation": "portrait",
-    "updates": {
-      "fallbackToCacheTimeout": 0
-    },
-    "assetBundlePatterns": [
-      "**/*"
+    "sdkVersion": "51.0.0",
+    "platforms": [
+      "ios",
+      "android"
     ],
-    "ios": {
-      "supportsTablet": true
-    },
     "android": {
-      "package": "com.fraud.facedetector"
+      "package": "com.fraud.facedetector",
+      "splash": {
+        "backgroundColor": "#0f172a"
+      }
     },
     "extra": {
       "eas": {
         "projectId": "be2d176a-2799-4673-86a5-24bdf23c731f"
       }
-    },
-    "sdkVersion": "51.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ]
+    }
   }
 }
