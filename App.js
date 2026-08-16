@@ -1,232 +1,179 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, ScrollView, Share, Switch } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  TextInput, 
+  TouchableOpacity, 
+  ScrollView, 
+  SafeAreaView,
+  Linking 
+} from 'react-native';
 
 export default function App() {
-  const [currentView, setCurrentView] = useState('home'); // होम पेज सबसे पहले खुलेगा
-  const [activeSetting, setActiveSetting] = useState(null);
-  
-  // सेटिंग्स के स्विच स्टेट्स
-  const [notifEnabled, setNotifEnabled] = useState(true);
-  const [darkMode, setDarkMode] = useState(true);
-  const [autoScan, setAutoScan] = useState(true);
+  const [currentScreen, setCurrentScreen] = useState('home');
+  const [messageText, setMessageText] = useState('');
+  const [reportText, setReportText] = useState('');
+  const [checkResult, setCheckResult] = useState('यह संदेश सामान्य लग रहा है, फिर भी सावधान रहें।');
 
-  const openSettingDetail = (title, type) => {
-    setActiveSetting({ title, type });
-    setCurrentView('setting-detail');
+  // सपोर्ट बटन दबाने पर UPI लिंक खुलेगा
+  const handleSupport = () => {
+    Linking.openURL('upi://pay?pa=Aashishkevat975@ybl&pn=Aashish%20Kevat&cu=INR');
   };
 
-  const shareApp = async () => {
-    try {
-      await Share.share({
-        message: 'इस Fraud Face Detector ऐप से साइबर फ्रॉड से बचें! ऐप डाउनलोड करें: https://play.google.com/store/apps/details?id=com.fraud.facedetector',
-      });
-    } catch (error) {
-      alert(error.message);
+  // WhatsApp शेयरिंग फंक्शन
+  const handleShareApp = () => {
+    const shareText = encodeURIComponent('नमस्कार! ऑनलाइन फ्रॉड और स्कैम से सुरक्षित रहने के लिए हमारा यह "Fraud Face Detector" ऐप जरूर डाउनलोड करें।');
+    Linking.openURL(`whatsapp://send?text=${shareText}`);
+  };
+
+  const handleCheckMessage = () => {
+    if (!messageText.trim()) {
+      setCheckResult('कृपया जाँच करने के लिए कोई संदेश यहाँ पेस्ट करें।');
+      return;
+    }
+    const lower = messageText.toLowerCase();
+    if (lower.includes('lottery') || lower.includes('won') || lower.includes('prize') || lower.includes('jeete') || lower.includes('farji') || lower.includes('otp')) {
+      setCheckResult('⚠️ चेतावनी: यह फ्रॉड या स्कैम संदेश लग सकता है!');
+    } else {
+      setCheckResult('✅ यह संदेश सामान्य लग रहा है।');
     }
   };
 
+  if (currentScreen === 'settings') {
+    return (
+      <SafeAreaView style={styles.container}>
+        <View style={styles.header}>
+          <TouchableOpacity style={styles.backButton} onPress={() => setCurrentScreen('home')}>
+            <Text style={styles.backButtonText}>← होम पर वापस</Text>
+          </TouchableOpacity>
+          <Text style={styles.screenTitle}>⚙️ सेटिंग्स & प्राइवेसी</Text>
+        </View>
+
+        <ScrollView contentContainerStyle={styles.scrollContent}>
+          <TouchableOpacity style={styles.settingCard} onPress={() => Linking.openURL('https://cybercrime.gov.in')}>
+            <Text style={styles.settingTitle}>1. साइबर क्राइम हेल्पलाइन नंबर</Text>
+            <Text style={styles.settingDesc}>1930 नंबर और आधिकारिक वेबसाइट लिंक</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.settingCard} onPress={() => Linking.openURL('tel:1930')}>
+            <Text style={styles.settingTitle}>2. बैंक फ्रॉड & तुरंत ब्लॉक नंबर</Text>
+            <Text style={styles.settingDesc}>SBI, PNB, HDFC और अन्य बैंकों के हेल्पलाइन</Text>
+          </TouchableOpacity>
+
+          <View style={styles.settingCard}>
+            <Text style={styles.settingTitle}>3. नोटिफिकेशन & अलर्ट</Text>
+            <Text style={styles.settingDesc}>नए ऑनलाइन फ्रॉड अलर्ट प्राप्त करें</Text>
+          </View>
+
+          <View style={styles.settingCard}>
+            <Text style={styles.settingTitle}>4. ऑटो स्कैम डिटेक्टर</Text>
+            <Text style={styles.settingDesc}>संदिग्ध संदेशों की स्वचालित जांच</Text>
+          </View>
+
+          <View style={styles.settingCard}>
+            <Text style={styles.settingTitle}>5. डिस्प्ले & डार्क मोड</Text>
+            <Text style={styles.settingDesc}>आंखों की सुरक्षा के लिए थीम बदलें</Text>
+          </View>
+
+          {/* शेयर बटन यहाँ एक्टिव कर दिया गया है */}
+          <TouchableOpacity style={styles.settingCard} onPress={handleShareApp}>
+            <Text style={styles.settingTitle}>6. दोस्तों के साथ शेयर करें</Text>
+            <Text style={styles.settingDesc}>लिंक के साथ WhatsApp पर भेजें</Text>
+          </TouchableOpacity>
+
+          <View style={styles.settingCard}>
+            <Text style={styles.settingTitle}>7. प्राइवेसी पॉलिसी & सुरक्षा</Text>
+            <Text style={styles.settingDesc}>आपका डेटा और पहचान पूरी तरह सुरक्षित</Text>
+          </View>
+
+          <View style={styles.settingCard}>
+            <Text style={styles.settingTitle}>8. हेल्प & सपोर्ट</Text>
+            <Text style={styles.settingDesc}>हमसे संपर्क करें</Text>
+          </View>
+
+          {/* Support Us बटन */}
+          <TouchableOpacity style={styles.supportButton} onPress={handleSupport}>
+            <Text style={styles.supportButtonText}>❤️ Support Us (सहयोग करें)</Text>
+            <Text style={styles.supportButtonSubText}>Aashishkevat975@ybl पर सहयोग दें</Text>
+          </TouchableOpacity>
+
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
   return (
-    <ScrollView style={styles.container}>
-      {/* 1. होम पेज (आपके सारे पुराने फीचर्स बिल्कुल सुरक्षित हैं) */}
-      {currentView === 'home' && (
-        <View>
-          <View style={styles.topBar}>
-            <TouchableOpacity style={styles.backBtn} onPress={() => alert('होम पेज पर हैं')}>
-              <Text style={styles.backBtnText}>← होम पर जाएं</Text>
-            </TouchableOpacity>
-            {/* सेटिंग्स आइकॉन */}
-            <TouchableOpacity onPress={() => setCurrentView('settings')}>
-              <Text style={{fontSize: 24}}>⚙️</Text>
-            </TouchableOpacity>
-          </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.mainHeader}>
+        <Text style={styles.appName}>Fraud Face Detector</Text>
+        <TouchableOpacity style={styles.settingsIconBtn} onPress={() => setCurrentScreen('settings')}>
+          <Text style={styles.settingsIconText}>⚙️</Text>
+        </TouchableOpacity>
+      </View>
 
-          <Text style={styles.headerTitle}>Fraud Face Detector</Text>
-
-          {/* आपके होम पेज के मुख्य फीचर्स */}
-          <TouchableOpacity style={styles.homeCard} onPress={() => alert('फेस स्कैनिंग शुरू हो रही है...')}>
-            <Text style={styles.homeCardTitle}>🔍 संदिग्ध चेहरा स्कैन करें</Text>
-            <Text style={styles.homeCardDesc}>स्कैमर्स और फ्रॉड चेहरों की पहचान करें</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.homeCard} onPress={() => alert('मैसेज स्कैनर ओपन हो रहा है...')}>
-            <Text style={styles.homeCardTitle}>💬 फ्रॉड मैसेज चेकर</Text>
-            <Text style={styles.homeCardDesc}>लॉटरी या फर्जी SMS की जांच करें</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.homeCard} onPress={() => setCurrentView('settings')}>
-            <Text style={styles.homeCardTitle}>⚙️ सेटिंग्स & प्राइवेसी</Text>
-            <Text style={styles.homeCardDesc}>हेल्पलाइन नंबर, शेयर और अन्य सेटिंग्स</Text>
-          </TouchableOpacity>
-
-          <View style={styles.supportBox}>
-            <Text style={styles.supportTitle}>❤️ Support Us (सहयोग करें)</Text>
-            <Text style={styles.supportDesc}>Aashishkevat975@ybl पर सहयोग देकर इस ऐप को आगे बढ़ाएं।</Text>
-          </View>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.sectionBox}>
+          <Text style={styles.sectionHeaderTitle}>🛡️ मुख्य सुरक्षा टूल</Text>
+          <TouchableOpacity style={styles.cyberPortalBtn} onPress={() => Linking.openURL('https://cybercrime.gov.in')}><Text style={styles.btnTextWhite}>🌐 साइबर पोर्टल</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.helplineBtn} onPress={() => Linking.openURL('tel:1930')}><Text style={styles.btnTextWhite}>📞 1930 हेल्पलाइन</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.blockListBtn}><Text style={styles.btnTextWhite}>🏦 बैंक ब्लॉक लिस्ट</Text></TouchableOpacity>
         </View>
-      )}
 
-      {/* 2. सेटिंग्स मेनू पेज (यहाँ से आप असली फोन जैसी सेटिंग्स खोलेंगे) */}
-      {currentView === 'settings' && (
-        <View>
-          <TouchableOpacity style={styles.backBtn} onPress={() => setCurrentView('home')}>
-            <Text style={styles.backBtnText}>← होम पर वापस</Text>
-          </TouchableOpacity>
-
-          <Text style={styles.headerTitle}>⚙️ सेटिंग्स & प्राइवेसी</Text>
-
-          <TouchableOpacity style={styles.settingItem} onPress={() => openSettingDetail('साइबर क्राइम हेल्पलाइन', 'helpline')}>
-            <View>
-              <Text style={styles.settingTitle}>1. साइबर क्राइम हेल्पलाइन नंबर</Text>
-              <Text style={styles.settingDesc}>1930 नंबर और आधिकारिक वेबसाइट लिंक</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.settingItem} onPress={() => openSettingDetail('बैंक अकाउंट ब्लॉक सूची', 'bank')}>
-            <View>
-              <Text style={styles.settingTitle}>2. बैंक फ्रॉड & तुरंत ब्लॉक नंबर</Text>
-              <Text style={styles.settingDesc}>SBI, PNB, HDFC और अन्य बैंकों के हेल्पलाइन</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.settingItem} onPress={() => openSettingDetail('स्कैम अलर्ट नोटिफिकेशन', 'notif')}>
-            <View>
-              <Text style={styles.settingTitle}>3. नोटिफिकेशन & अलर्ट</Text>
-              <Text style={styles.settingDesc}>नए ऑनलाइन फ्रॉड अलर्ट प्राप्त करें</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.settingItem} onPress={() => openSettingDetail('ऑटो स्कैन सुरक्षा', 'scan')}>
-            <View>
-              <Text style={styles.settingTitle}>4. ऑटो स्कैम डिटेक्टर</Text>
-              <Text style={styles.settingDesc}>संदिग्ध संदेशों की स्वचालित जांच</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.settingItem} onPress={() => openSettingDetail('डार्क मोड', 'dark')}>
-            <View>
-              <Text style={styles.settingTitle}>5. डिस्प्ले & डार्क मोड</Text>
-              <Text style={styles.settingDesc}>आंखों की सुरक्षा के लिए थीम बदलें</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.settingItem} onPress={shareApp}>
-            <View>
-              <Text style={styles.settingTitle}>6. दोस्तों के साथ शेयर करें</Text>
-              <Text style={styles.settingDesc}>लिंक के साथ WhatsApp पर भेजें</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.settingItem} onPress={() => openSettingDetail('प्राइवेसी पॉलिसी', 'privacy')}>
-            <View>
-              <Text style={styles.settingTitle}>7. प्राइवेसी पॉलिसी & सुरक्षा</Text>
-              <Text style={styles.settingDesc}>आपका डेटा और पहचान पूरी तरह सुरक्षित</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.settingItem} onPress={() => openSettingDetail('हेल्प & सपोर्ट', 'help')}>
-            <View>
-              <Text style={styles.settingTitle}>8. हेल्प & सपोर्ट</Text>
-              <Text style={styles.settingDesc}>हमसे संपर्क करें</Text>
-            </View>
-            <Text style={styles.arrow}>›</Text>
-          </TouchableOpacity>
+        <View style={styles.sectionBox}>
+          <Text style={styles.sectionHeaderTitle}>🤖 AI & स्कैम सुरक्षा</Text>
+          <TextInput style={styles.textInputBox} placeholder="संदेश यहाँ पेस्ट करें..." placeholderTextColor="#888" value={messageText} onChangeText={setMessageText} />
+          <TouchableOpacity style={styles.checkBtn} onPress={handleCheckMessage}><Text style={styles.btnTextWhite}>चेक करें</Text></TouchableOpacity>
+          <Text style={styles.resultText}>{checkResult}</Text>
         </View>
-      )}
 
-      {/* 3. सेटिंग्स के अंदर खुलने वाला सब-पेज (नया विंडो) */}
-      {currentView === 'setting-detail' && (
-        <View>
-          <TouchableOpacity style={styles.backBtn} onPress={() => setCurrentView('settings')}>
-            <Text style={styles.backBtnText}>← सेटिंग्स पर वापस</Text>
-          </TouchableOpacity>
+        <View style={styles.loveTrapBox}><Text style={styles.loveTrapText}>💔 लव ट्रैप और डेटिंग फ्रॉड से बचें</Text></View>
 
-          <Text style={styles.headerTitle}>{activeSetting?.title}</Text>
-
-          <View style={styles.subContentBox}>
-            {activeSetting?.type === 'helpline' && (
-              <View>
-                <Text style={styles.subTextBold}>🚨 नेशनल साइबर क्राइम हेल्पलाइन:</Text>
-                <Text style={styles.subText}>तुरंत कॉल करें: 1930</Text>
-                <Text style={styles.subText} style={{marginTop: 10}}>वेबसाइट: cybercrime.gov.in</Text>
-                <Text style={styles.subDesc}>यदि आपके साथ ऑनलाइन ठगी हुई है, तो तुरंत 1930 पर कॉल करें ताकि पैसे बचाए जा सकें।</Text>
-              </View>
-            )}
-
-            {activeSetting?.type === 'bank' && (
-              <View>
-                <Text style={styles.subTextBold}>🏦 प्रमुख बैंक हेल्पडेस्क:</Text>
-                <Text style={styles.subText}>• SBI: 1800-1122-11</Text>
-                <Text style={styles.subText}>• PNB: 1800-180-2222</Text>
-                <Text style={styles.subText}>• HDFC: 1800-258-3838</Text>
-                <Text style={styles.subDesc}>खाता ब्लॉक करने के लिए सीधे अपने बैंक को सूचित करें।</Text>
-              </View>
-            )}
-
-            {activeSetting?.type === 'notif' && (
-              <View style={styles.row}>
-                <Text style={styles.subTextBold}>नए स्कैम अलर्ट नोटिफिकेशन</Text>
-                <Switch value={notifEnabled} onValueChange={setNotifEnabled} />
-              </View>
-            )}
-
-            {activeSetting?.type === 'scan' && (
-              <View style={styles.row}>
-                <Text style={styles.subTextBold}>ऑटोमेटिक स्कैम चेकिंग</Text>
-                <Switch value={autoScan} onValueChange={setAutoScan} />
-              </View>
-            )}
-
-            {activeSetting?.type === 'dark' && (
-              <View style={styles.row}>
-                <Text style={styles.subTextBold}>डार्क थीम (Dark Mode)</Text>
-                <Switch value={darkMode} onValueChange={setDarkMode} />
-              </View>
-            )}
-
-            {activeSetting?.type === 'privacy' && (
-              <Text style={styles.subDesc}>आपका डेटा पूरी तरह सुरक्षित है। यह ऐप केवल फ्रॉड से बचाने के लिए डिज़ाइन किया गया है।</Text>
-            )}
-
-            {activeSetting?.type === 'help' && (
-              <Text style={styles.subDesc}>किसी भी सहायता के लिए हमारी सपोर्ट टीम से संपर्क करें। हम आपकी मदद के लिए हमेशा तैयार हैं।</Text>
-            )}
-          </View>
+        <View style={styles.liveAlertBox}>
+          <Text style={styles.liveAlertTitle}>🔴 लाइव अलर्ट:</Text>
+          <Text style={styles.liveAlertDesc}>आजकल 'जॉब फ्रॉड' और फर्जी कॉल्स से बचकर रहें!</Text>
         </View>
-      )}
-    </ScrollView>
+
+        <View style={styles.sectionBox}>
+          <Text style={styles.sectionHeaderTitle}>📝 फ्रॉड रिपोर्ट दर्ज करें</Text>
+          <TextInput style={[styles.textInputBox, { height: 70 }]} placeholder="डिटेल्स लिखें..." multiline={true} value={reportText} onChangeText={setReportText} />
+          <TouchableOpacity style={styles.saveReportBtn} onPress={() => alert('रिपोर्ट दर्ज हो गई!')}><Text style={styles.btnTextWhite}>सुरक्षित रखें</Text></TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: '#0f172a', padding: 15, paddingTop: 40 },
-  topBar: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 },
-  backBtn: { backgroundColor: '#1e293b', padding: 10, borderRadius: 6, alignSelf: 'flex-start', marginBottom: 15 },
-  backBtnText: { color: '#ffffff', fontSize: 14, fontWeight: 'bold' },
-  headerTitle: { fontSize: 22, fontWeight: 'bold', color: '#ffffff', marginBottom: 20 },
-  
-  homeCard: { backgroundColor: '#1e293b', borderWidth: 1, borderColor: '#334155', padding: 18, borderRadius: 12, marginBottom: 15 },
-  homeCardTitle: { color: '#38bdf8', fontSize: 16, fontWeight: 'bold', marginBottom: 5 },
-  homeCardDesc: { color: '#94a3b8', fontSize: 13 },
-
-  settingItem: { backgroundColor: '#1e293b', borderWidth: 1, borderColor: '#334155', padding: 15, borderRadius: 10, marginBottom: 10, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  settingTitle: { color: '#38bdf8', fontSize: 15, fontWeight: 'bold', marginBottom: 3 },
-  settingDesc: { color: '#94a3b8', fontSize: 12 },
-  arrow: { color: '#94a3b8', fontSize: 22, fontWeight: 'bold' },
-
-  supportBox: { backgroundColor: '#312e81', borderWidth: 1, borderColor: '#4f46e5', padding: 15, borderRadius: 10, marginTop: 15, marginBottom: 30 },
-  supportTitle: { color: '#f87171', fontSize: 16, fontWeight: 'bold', marginBottom: 5 },
-  supportDesc: { fontSize: 13, color: '#cbd5e1' },
-
-  subContentBox: { backgroundColor: '#1e293b', padding: 20, borderRadius: 10, marginTop: 10, borderWidth: 1, borderColor: '#334155' },
-  subTextBold: { color: '#ffffff', fontSize: 16, fontWeight: 'bold', marginBottom: 8 },
-  subText: { color: '#38bdf8', fontSize: 14, marginBottom: 5 },
-  subDesc: { color: '#cbd5e1', fontSize: 13, marginTop: 10, lineHeight: 20 },
-  row: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }
+  container: { flex: 1, backgroundColor: '#0b132b' },
+  mainHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 16, borderBottomWidth: 1, borderBottomColor: '#1c2541' },
+  appName: { color: '#ffffff', fontSize: 20, fontWeight: 'bold' },
+  settingsIconText: { fontSize: 22 },
+  header: { flexDirection: 'row', alignItems: 'center', padding: 16, backgroundColor: '#0b132b' },
+  backButton: { marginRight: 15, backgroundColor: '#1c2541', paddingVertical: 6, paddingHorizontal: 12, borderRadius: 6 },
+  backButtonText: { color: '#ffffff' },
+  screenTitle: { color: '#ffffff', fontSize: 18, fontWeight: 'bold' },
+  scrollContent: { padding: 16, paddingBottom: 30 },
+  sectionBox: { backgroundColor: '#1c2541', borderRadius: 12, padding: 15, marginBottom: 15 },
+  sectionHeaderTitle: { color: '#ffffff', fontSize: 16, fontWeight: 'bold', marginBottom: 12 },
+  btnTextWhite: { color: '#ffffff', fontWeight: 'bold' },
+  cyberPortalBtn: { backgroundColor: '#0096c7', padding: 12, borderRadius: 8, alignItems: 'center', marginBottom: 10 },
+  helplineBtn: { backgroundColor: '#d90429', padding: 12, borderRadius: 8, alignItems: 'center', marginBottom: 10 },
+  blockListBtn: { backgroundColor: '#7b2cbf', padding: 12, borderRadius: 8, alignItems: 'center' },
+  textInputBox: { backgroundColor: '#0b132b', color: '#ffffff', borderRadius: 8, padding: 12, borderWidth: 1, borderColor: '#3a506b', marginBottom: 10 },
+  checkBtn: { backgroundColor: '#0077b6', padding: 12, borderRadius: 8, alignItems: 'center' },
+  resultText: { color: '#ffb703', marginTop: 10, fontSize: 13 },
+  loveTrapBox: { backgroundColor: '#1c2541', padding: 15, borderRadius: 12, marginBottom: 15, borderColor: '#ef476f', borderWidth: 1, alignItems: 'center' },
+  loveTrapText: { color: '#ff6b6b', fontWeight: 'bold', fontSize: 15 },
+  liveAlertBox: { backgroundColor: '#212529', padding: 15, borderRadius: 12, marginBottom: 15, borderLeftWidth: 4, borderLeftColor: '#ff0054' },
+  liveAlertTitle: { color: '#ff4d6d', fontWeight: 'bold', fontSize: 15 },
+  liveAlertDesc: { color: '#adb5bd', fontSize: 13 },
+  saveReportBtn: { backgroundColor: '#2b9348', padding: 12, borderRadius: 8, alignItems: 'center' },
+  settingCard: { backgroundColor: '#1c2541', borderRadius: 10, padding: 15, marginBottom: 12 },
+  settingTitle: { color: '#48cae4', fontSize: 16, fontWeight: 'bold', marginBottom: 4 },
+  settingDesc: { color: '#adb5bd', fontSize: 13 },
+  supportButton: { backgroundColor: '#4361ee', borderRadius: 12, padding: 20, alignItems: 'center', marginTop: 20 },
+  supportButtonText: { color: '#ffffff', fontSize: 18, fontWeight: 'bold' },
+  supportButtonSubText: { color: '#d0d0d0', fontSize: 12, marginTop: 5 }
 });
+      
