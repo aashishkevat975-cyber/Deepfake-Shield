@@ -2,7 +2,6 @@
   "expo": {
     "name": "Fraud Face Detector",
     "slug": "frode-face-detector",
-    "owner": "aashishkevat56s-team",
     "version": "1.0.0",
     "icon": "./icon.png",
     "orientation": "portrait",
@@ -23,7 +22,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "f82b3e4c-24a6-45be-be69-3ff2251379ca"
+        "projectId": "fraud-face-detector"
       }
     }
   }
