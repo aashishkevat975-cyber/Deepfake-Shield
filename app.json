@@ -2,6 +2,7 @@
   "expo": {
     "name": "Fraud Face Detector",
     "slug": "frode-face-detector",
+    "owner": "aashishkevat",
     "version": "1.0.0",
     "icon": "./icon.png",
     "orientation": "portrait",
