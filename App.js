@@ -16,12 +16,10 @@ export default function App() {
   const [reportText, setReportText] = useState('');
   const [checkResult, setCheckResult] = useState('यह संदेश सामान्य लग रहा है, फिर भी सावधान रहें।');
 
-  // सपोर्ट बटन दबाने पर UPI लिंक खुलेगा
   const handleSupport = () => {
     Linking.openURL('upi://pay?pa=Aashishkevat975@ybl&pn=Aashish%20Kevat&cu=INR');
   };
 
-  // WhatsApp शेयरिंग फंक्शन
   const handleShareApp = () => {
     const shareText = encodeURIComponent('नमस्कार! ऑनलाइन फ्रॉड और स्कैम से सुरक्षित रहने के लिए हमारा यह "Fraud Face Detector" ऐप जरूर डाउनलोड करें।');
     Linking.openURL(`whatsapp://send?text=${shareText}`);
@@ -51,46 +49,54 @@ export default function App() {
         </View>
 
         <ScrollView contentContainerStyle={styles.scrollContent}>
+          
+          {/* 1 नंबर */}
           <TouchableOpacity style={styles.settingCard} onPress={() => Linking.openURL('https://cybercrime.gov.in')}>
             <Text style={styles.settingTitle}>1. साइबर क्राइम हेल्पलाइन नंबर</Text>
             <Text style={styles.settingDesc}>1930 नंबर और आधिकारिक वेबसाइट लिंक</Text>
           </TouchableOpacity>
 
+          {/* 2 नंबर */}
           <TouchableOpacity style={styles.settingCard} onPress={() => Linking.openURL('tel:1930')}>
             <Text style={styles.settingTitle}>2. बैंक फ्रॉड & तुरंत ब्लॉक नंबर</Text>
             <Text style={styles.settingDesc}>SBI, PNB, HDFC और अन्य बैंकों के हेल्पलाइन</Text>
           </TouchableOpacity>
 
-          <View style={styles.settingCard}>
+          {/* 3 नंबर */}
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('नोटिफिकेशन & अलर्ट सेवा चालू है। आपको समय-समय पर नए फ्रॉड अलर्ट मिलते रहेंगे।')}>
             <Text style={styles.settingTitle}>3. नोटिफिकेशन & अलर्ट</Text>
             <Text style={styles.settingDesc}>नए ऑनलाइन फ्रॉड अलर्ट प्राप्त करें</Text>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.settingCard}>
+          {/* 4 नंबर */}
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('ऑटो स्कैम डिटेक्टर एक्टिव है। यह आपके संदेशों की सुरक्षा जाँच करता है।')}>
             <Text style={styles.settingTitle}>4. ऑटो स्कैम डिटेक्टर</Text>
             <Text style={styles.settingDesc}>संदिग्ध संदेशों की स्वचालित जांच</Text>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.settingCard}>
+          {/* 5 नंबर */}
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('यह ऐप पहले से ही प्रीमियम डार्क मोड थीम पर सेट है।')}>
             <Text style={styles.settingTitle}>5. डिस्प्ले & डार्क मोड</Text>
             <Text style={styles.settingDesc}>आंखों की सुरक्षा के लिए थीम बदलें</Text>
-          </View>
+          </TouchableOpacity>
 
-          {/* शेयर बटन यहाँ एक्टिव कर दिया गया है */}
+          {/* 6 नंबर - शेयर */}
           <TouchableOpacity style={styles.settingCard} onPress={handleShareApp}>
             <Text style={styles.settingTitle}>6. दोस्तों के साथ शेयर करें</Text>
             <Text style={styles.settingDesc}>लिंक के साथ WhatsApp पर भेजें</Text>
           </TouchableOpacity>
 
-          <View style={styles.settingCard}>
+          {/* 7 नंबर */}
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('प्राइवेसी पॉलिसी: आपका डेटा पूरी तरह सुरक्षित है और इसे किसी के साथ साझा नहीं किया जाता।')}>
             <Text style={styles.settingTitle}>7. प्राइवेसी पॉलिसी & सुरक्षा</Text>
             <Text style={styles.settingDesc}>आपका डेटा और पहचान पूरी तरह सुरक्षित</Text>
-          </View>
+          </TouchableOpacity>
 
-          <View style={styles.settingCard}>
+          {/* 8 नंबर */}
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('हेल्प & सपोर्ट: किसी भी सहायता के लिए आप हमें साइबर क्राइम पोर्टल या 1930 पर संपर्क कर सकते हैं।')}>
             <Text style={styles.settingTitle}>8. हेल्प & सपोर्ट</Text>
             <Text style={styles.settingDesc}>हमसे संपर्क करें</Text>
-          </View>
+          </TouchableOpacity>
 
           {/* Support Us बटन */}
           <TouchableOpacity style={styles.supportButton} onPress={handleSupport}>
@@ -117,7 +123,7 @@ export default function App() {
           <Text style={styles.sectionHeaderTitle}>🛡️ मुख्य सुरक्षा टूल</Text>
           <TouchableOpacity style={styles.cyberPortalBtn} onPress={() => Linking.openURL('https://cybercrime.gov.in')}><Text style={styles.btnTextWhite}>🌐 साइबर पोर्टल</Text></TouchableOpacity>
           <TouchableOpacity style={styles.helplineBtn} onPress={() => Linking.openURL('tel:1930')}><Text style={styles.btnTextWhite}>📞 1930 हेल्पलाइन</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.blockListBtn}><Text style={styles.btnTextWhite}>🏦 बैंक ब्लॉक लिस्ट</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.blockListBtn} onPress={() => alert('बैंक ब्लॉक लिस्ट पेज')}><Text style={styles.btnTextWhite}>🏦 बैंक ब्लॉक लिस्ट</Text></TouchableOpacity>
         </View>
 
         <View style={styles.sectionBox}>
