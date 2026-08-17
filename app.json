@@ -11,28 +11,12 @@
       "resizeMode": "contain",
       "backgroundColor": "#0b132b"
     },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.aashishkevat975.fraudfacedetector"
-    },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#0b132b"
       },
       "package": "com.aashishkevat975.fraudfacedetector"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "plugins": [
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-3392575239105459~xxxxxxxxxx",
-          "iosAppId": "ca-app-pub-3392575239105459~yyyyyyyyyy"
-        }
-      ]
-    ]
+    }
   }
 }
