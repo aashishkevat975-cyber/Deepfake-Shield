@@ -9,6 +9,7 @@ import {
   SafeAreaView,
   Linking,
 } from 'react-native';
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -165,6 +166,15 @@ export default function App() {
           <Text style={styles.btnTextWhite}>📤 ऐप दोस्तों को शेयर करें (डाउनलोड बढ़ाएं)</Text>
         </TouchableOpacity>
       </ScrollView>
+
+      {/* Google AdMob बैनर ऐड */}
+      <BannerAd
+        unitId={__DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy'}
+        size={BannerAdSize.FULL_BANNER}
+        requestOptions={{
+          requestNonPersonalizedAdsOnly: true,
+        }}
+      />
     </SafeAreaView>
   );
 }
@@ -203,4 +213,4 @@ const styles = StyleSheet.create({
   supportButtonText: { color: '#ffffff', fontSize: 18, fontWeight: 'bold' },
   supportButtonSubText: { color: '#d0d0d0', fontSize: 12, marginTop: 5 }
 });
-      
+  
