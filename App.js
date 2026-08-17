@@ -9,7 +9,6 @@ import {
   SafeAreaView,
   Linking,
 } from 'react-native';
-import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads';
 
 export default function App() {
   const [currentScreen, setCurrentScreen] = useState('home');
@@ -22,7 +21,7 @@ export default function App() {
   };
 
   const handleShareApp = () => {
-    const shareText = encodeURIComponent('नमस्कार! ऑनलाइन फ्रॉड और घोटालों से सुरक्षित रहने के लिए हमारा यह "Fraud Face Detector" ऐप जरूर डाउनलोड करें। लिंक: https://github.com/aashishkevat975-cyber');
+    const shareText = encodeURIComponent('नमस्कार! ऑनलाइन फ्रॉड और घोटालों से सुरक्षित रहने के लिए हमारा यह "Fraud Face Detector" ऐप जरूर डाउनलोड करें।');
     Linking.openURL(`whatsapp://send?text=${shareText}`);
   };
 
@@ -60,32 +59,32 @@ export default function App() {
             <Text style={styles.settingDesc}>SBI, PNB, HDFC और अन्य बैंकों के हेल्पलाइन</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.settingCard} onPress={() => alert('नोटिफिकेशन & अलर्ट सेवा चालू है। आपको समय-समय पर नए फ्रॉड अलर्ट मिलते रहेंगे।')}>
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('नोटिफिकेशन & अलर्ट सेवा चालू है।')}>
             <Text style={styles.settingTitle}>3. नोटिफिकेशन & अलर्ट</Text>
             <Text style={styles.settingDesc}>नए ऑनलाइन फ्रॉड अलर्ट प्राप्त करें</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.settingCard} onPress={() => alert('ऑटो स्कैम डिटेक्टर एक्टिव है। यह आपके संदेशों की सुरक्षा जाँच करता है।')}>
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('ऑटो स्कैम डिटेक्टर एक्टिव है।')}>
             <Text style={styles.settingTitle}>4. ऑटो स्कैम डिटेक्टर</Text>
             <Text style={styles.settingDesc}>संदिग्ध संदेशों की स्वचालित जाँच</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.settingCard} onPress={() => alert('यह ऐप पहले से ही प्रीमियम डार्क थीम पर सेट है।')}>
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('डार्क थीम पर सेट है।')}>
             <Text style={styles.settingTitle}>5. डिस्प्ले & डार्क मोड</Text>
             <Text style={styles.settingDesc}>आंखों की सुरक्षा के लिए थीम बदलें</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.settingCard} onPress={handleShareApp}>
             <Text style={styles.settingTitle}>6. दोस्तों के साथ शेयर करें</Text>
-            <Text style={styles.settingDesc}>लिंक के साथ WhatsApp पर भेजें (डाउनलोड बढ़ाएं)</Text>
+            <Text style={styles.settingDesc}>लिंक के साथ WhatsApp पर भेजें</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.settingCard} onPress={() => alert('प्राइवेसी पॉलिसी: आपका डेटा पूरी तरह सुरक्षित है और इसे किसी के साथ साझा नहीं किया जाता।')}>
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('आपका डेटा पूरी तरह सुरक्षित है।')}>
             <Text style={styles.settingTitle}>7. प्राइवेसी पॉलिसी & सुरक्षा</Text>
             <Text style={styles.settingDesc}>आपका डेटा और पहचान पूरी तरह सुरक्षित</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.settingCard} onPress={() => alert('हेल्प & सपोर्ट: किसी भी सहायता के लिए आप हमें साइबर क्राइम पोर्टल या 1930 पर संपर्क कर सकते हैं।')}>
+          <TouchableOpacity style={styles.settingCard} onPress={() => alert('सहायता के लिए 1930 पर संपर्क करें।')}>
             <Text style={styles.settingTitle}>8. हेल्प & सपोर्ट</Text>
             <Text style={styles.settingDesc}>हमसे संपर्क करें</Text>
           </TouchableOpacity>
@@ -117,7 +116,7 @@ export default function App() {
           <TouchableOpacity style={styles.helplineBtn} onPress={() => Linking.openURL('tel:1930')}>
             <Text style={styles.btnTextWhite}>📞 1930 हेल्पलाइन</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.blockListBtn} onPress={() => alert('सभी प्रमुख बैंकों के ब्लॉक नंबर सेटिंग्स में उपलब्ध हैं।')}>
+          <TouchableOpacity style={styles.blockListBtn} onPress={() => alert('बैंक ब्लॉक नंबर उपलब्ध हैं।')}>
             <Text style={styles.btnTextWhite}>🏦 बैंक ब्लॉक लिस्ट</Text>
           </TouchableOpacity>
         </View>
@@ -157,25 +156,15 @@ export default function App() {
             onChangeText={setReportText}
             multiline={true}
           />
-          <TouchableOpacity style={styles.saveReportBtn} onPress={() => alert('रिपोर्ट दर्ज हो गई है! सुरक्षित रहें।')}>
+          <TouchableOpacity style={styles.saveReportBtn} onPress={() => alert('रिपोर्ट दर्ज हो गई है!')}>
             <Text style={styles.btnTextWhite}>सुरक्षित रखें</Text>
           </TouchableOpacity>
         </View>
 
-        {/* डाउनलोड और प्रचार बढ़ाने के लिए शेयर बटन */}
         <TouchableOpacity style={styles.shareAppPromoBtn} onPress={handleShareApp}>
           <Text style={styles.btnTextWhite}>📤 ऐप दोस्तों को शेयर करें (डाउनलोड बढ़ाएं)</Text>
         </TouchableOpacity>
       </ScrollView>
-
-      {/* सबसे नीचे Google AdMob बैनर ऐड */}
-      <BannerAd
-        unitId={__DEV__ ? TestIds.BANNER : 'ca-app-pub-xxxxxxxxxxxxxxxx/yyyyyyyyyy'}
-        size={BannerAdSize.FULL_BANNER}
-        requestOptions={{
-          requestNonPersonalizedAdsOnly: true,
-        }}
-      />
     </SafeAreaView>
   );
 }
