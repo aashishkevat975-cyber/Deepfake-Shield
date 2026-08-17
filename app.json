@@ -1,30 +1,38 @@
 {
   "expo": {
     "name": "Fraud Face Detector",
-    "slug": "frode-face-detector",
-    "owner": "fraud-face-detector",
+    "slug": "fraud-face-detector",
     "version": "1.0.0",
-    "icon": "./icon.png",
     "orientation": "portrait",
-    "sdkVersion": "51.0.0",
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "android": {
-      "package": "com.fraud.facedetector",
-      "adaptiveIcon": {
-        "foregroundImage": "./icon.png",
-        "backgroundColor": "#0f172a"
-      },
-      "splash": {
-        "backgroundColor": "#0f172a"
-      }
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0b132b"
     },
-    "extra": {
-      "eas": {
-        "projectId": "f82b3e4c-24a6-45be-be69-3ff2251379ca"
-      }
-    }
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aashishkevat975.fraudfacedetector"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0b132b"
+      },
+      "package": "com.aashishkevat975.fraudfacedetector"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-3392575239105459~xxxxxxxxxx",
+          "iosAppId": "ca-app-pub-3392575239105459~yyyyyyyyyy"
+        }
+      ]
+    ]
   }
 }
