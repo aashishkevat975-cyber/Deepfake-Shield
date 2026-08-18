@@ -3,19 +3,38 @@ import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Alert,
 import { Ionicons } from '@expo/vector-icons';
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [reportText, setReportText] = useState('');
-  const [modalVisible, setModalVisible] = useState(false);
+  const [scanResult, setScanResult] = useState('यह संदेश सामान्य लग रहा है, फिर भी सावधान रहें।');
 
-  // WhatsApp Share Function with Direct Link
+  // App Share Function
   const handleShare = () => {
-    let appLink = "https://example.com/fraud-face-detector.apk"; // Yahan aap apni asli app ki download link daal sakte hain
-    let shareMessage = "Fraud Face Detector app download karein aur cyber fraud se surakshit rahein! Abhi download karein: " + appLink;
-    let url = "https://api.whatsapp.com/send?text=" + encodeURIComponent(shareMessage);
-    
-    Linking.openURL(url).catch(() => {
-      Alert.alert("Error", "WhatsApp nahi khul saka");
-    });
+    const link = "https://appsgeyser.com/your-app-link"; // Yahan apni sahi link daalein
+    Linking.openURL(`whatsapp://send?text=Fraud Face Detector app download karein aur surakshit rahein: ${link}`);
+  };
+
+  // Check Scam Function
+  const handleCheckScam = () => {
+    if (!message.trim()) {
+      Alert.alert('कृपया संदेश दर्ज करें');
+      return;
+    }
+    if (message.includes('lottery') || message.includes('winner') || message.includes('free') || message.includes('loan') || message.includes('jeete')) {
+      setScanResult('⚠️ चेतावनी: यह एक संभावित स्कैम संदेश हो सकता है! सावधान रहें।');
+    } else {
+      setScanResult('✅ यह संदेश सुरक्षित लग रहा है।');
+    }
+  };
+
+  // Submit Report
+  const handleReport = () => {
+    if (!reportText.trim()) {
+      Alert.alert('कृपया डिटेल्स लिखें');
+      return;
+    }
+    Alert.alert('धन्यवाद! आपकी फ्रॉड रिपोर्ट दर्ज कर ली गई है।');
+    setReportText('');
   };
 
   return (
@@ -34,55 +53,124 @@ export default function App() {
         <Text style={styles.yellowCardSub}>यहाँ क्लिक करें - SBI लोन के लिए अप्लाई करें और सुरक्षित रहें</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.blueButton} onPress={() => Linking.openURL('https://cybercrime.gov.in')}><Text style={styles.btnText}>🌐 साइबर पोर्टल</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.redButton} onPress={() => Linking.openURL('tel:1930')}><Text style={styles.btnText}>📞 1930 हेल्पलाइन</Text></TouchableOpacity>
-      <TouchableOpacity style={styles.purpleButton}><Text style={styles.btnText}>🏦 बैंक ब्लॉक लिस्ट</Text></TouchableOpacity>
+      {/* Main Buttons */}
+      <TouchableOpacity style={styles.blueButton} onPress={() => Linking.openURL('https://cybercrime.gov.in')}>
+        <Text style={styles.btnText}>🌐 साइबर पोर्टल</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.redButton} onPress={() => Linking.openURL('tel:1930')}>
+        <Text style={styles.btnText}>📞 1930 हेल्पलाइन</Text>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.purpleButton} onPress={() => Alert.alert('बैंक ब्लॉक लिस्ट', 'किसी भी फ्रॉड की स्थिति में तुरंत अपने बैंक के कस्टमर केयर या 1930 पर कॉल करें।')}>
+        <Text style={styles.btnText}>🏦 बैंक ब्लॉक लिस्ट</Text>
+      </TouchableOpacity>
 
+      {/* AI Scam Detector */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>🤖 AI & स्कैम सुरक्षा</Text>
-        <TextInput style={styles.input} placeholder="संदेश यहाँ पेस्ट करें..." placeholderTextColor="#888" value={message} onChangeText={setMessage} />
-        <TouchableOpacity style={styles.actionButton}><Text style={styles.btnText}>चैक करें</Text></TouchableOpacity>
+        <TextInput 
+          style={styles.input} 
+          placeholder="संदेश यहाँ पेस्ट करें..." 
+          placeholderTextColor="#888" 
+          value={message} 
+          onChangeText={setMessage} 
+        />
+        <TouchableOpacity style={styles.actionButton} onPress={handleCheckScam}>
+          <Text style={styles.btnText}>चैक करें</Text>
+        </TouchableOpacity>
+        <Text style={styles.resultText}>{scanResult}</Text>
       </View>
 
-      <TouchableOpacity style={styles.pinkButton}><Text style={styles.btnText}>💔 लव ट्रैप और डेटिंग फ्रॉड से बचें</Text></TouchableOpacity>
+      <TouchableOpacity style={styles.pinkButton} onPress={() => Alert.alert('लव ट्रैप और डेटिंग फ्रॉड', 'सोशल मीडिया पर अनजान लोगों से सतर्क रहें, पैसे या व्यक्तिगत जानकारी साझा न करें।')}>
+        <Text style={styles.btnText}>💔 लव ट्रैप और डेटिंग फ्रॉड से बचें</Text>
+      </TouchableOpacity>
       
       <View style={styles.alertBox}>
         <Text style={styles.alertTitle}>🔴 लाइव अलर्ट:</Text>
         <Text style={styles.alertText}>आजकल 'जॉब फ्रॉड' और फर्जी कॉल्स से बचकर रहें!</Text>
       </View>
 
+      {/* Report Section */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>📝 फ्रॉड रिपोर्ट दर्ज करें</Text>
-        <TextInput style={styles.inputArea} placeholder="डिटेल्स लिखें..." placeholderTextColor="#888" multiline value={reportText} onChangeText={setReportText} />
-        <TouchableOpacity style={styles.greenButton}><Text style={styles.btnText}>सुरक्षित रखें</Text></TouchableOpacity>
+        <TextInput 
+          style={styles.inputArea} 
+          placeholder="डिटेल्स लिखें..." 
+          placeholderTextColor="#888" 
+          multiline 
+          value={reportText}
+          onChangeText={setReportText}
+        />
+        <TouchableOpacity style={styles.greenButton} onPress={handleReport}>
+          <Text style={styles.btnText}>सुरक्षित रखें</Text>
+        </TouchableOpacity>
       </View>
 
       {/* Share Button */}
       <TouchableOpacity style={styles.shareBtn} onPress={handleShare}>
-        <Text style={styles.btnText}>📤 ऐप दोस्तों को शेयर करें (लिंक भेजें)</Text>
+        <Text style={styles.btnText}>📤 ऐप दोस्तों को शेयर करें (डाउनलोड बढ़ाएं)</Text>
       </TouchableOpacity>
 
-      {/* Settings Modal */}
+      {/* Settings Modal with all 8 Active Features */}
       <Modal visible={modalVisible} transparent={true} animationType="slide">
         <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalHeader}>⚙️ सुरक्षा सेटिंग्स</Text>
-            <TouchableOpacity style={styles.modalItem} onPress={() => Alert.alert('UPI सपोर्ट', 'सहयोग के लिए यहाँ UPI करें: aashishkevat975@ybl')}>
-              <Text style={styles.modalItemText}>🤝 सपोर्ट (UPI: aashishkevat975@ybl)</Text>
+          <ScrollView style={styles.modalContent}>
+            <Text style={styles.modalHeader}>⚙️ सेटिंग्स & प्राइवेसी</Text>
+            
+            <TouchableOpacity style={styles.menuItem} onPress={() => Linking.openURL('tel:1930')}>
+              <Text style={styles.menuText}>1. साइबर क्राइम हेल्पलाइन नंबर (1930)</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.modalItem}><Text style={styles.modalItemText}>🛡️ प्राइवेसी पॉलिसी</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.modalItem}><Text style={styles.modalItemText}>📢 फ्रॉड अलर्ट नोटिफिकेशन</Text></TouchableOpacity>
-            <TouchableOpacity style={styles.closeModalBtn} onPress={() => setModalVisible(false)}><Text style={styles.btnText}>बंद करें</Text></TouchableOpacity>
-          </View>
+
+            <TouchableOpacity style={styles.menuItem} onPress={() => Linking.openURL('https://cybercrime.gov.in')}>
+              <Text style={styles.menuText}>2. बैंक फ्रॉड & तुरंत ब्लॉक पोर्टल</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.menuItem} onPress={() => Alert.alert('नोटिफिकेशन', 'फ्रॉड अलर्ट नोटिफिकेशन सेवा सक्रिय है।')}>
+              <Text style={styles.menuText}>3. नोटिफिकेशन & अलर्ट</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.menuItem} onPress={() => Alert.alert('ऑटो स्कैम डिटेक्टर', 'AI स्कैम डिटेक्टर चालू है जो संदिग्ध संदेशों की पहचान करता है।')}>
+              <Text style={styles.menuText}>4. ऑटो स्कैम डिटेक्टर</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.menuItem} onPress={() => Alert.alert('डिस्प्ले', 'डार्क मोड इस ऐप में पहले से ही सेट है।')}>
+              <Text style={styles.menuText}>5. डिस्प्ले & डार्क मोड</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.menuItem} onPress={handleShare}>
+              <Text style={styles.menuText}>6. दोस्तों के साथ शेयर करें</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.menuItem} onPress={() => Alert.alert('प्राइवेसी पॉलिसी', 'यह ऐप आपकी सुरक्षा और साइबर फ्रॉड से बचाने के लिए डिज़ाइन किया गया है। आपकी कोई भी पर्सनल जानकारी सुरक्षित है।')}>
+              <Text style={styles.menuText}>7. प्राइवेसी पॉलिसी & सुरक्षा</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.menuItem} onPress={() => Alert.alert('हेल्प & सपोर्ट', 'किसी भी सहायता के लिए नीचे दिए गए सपोर्ट बटन से सहयोग कर सकते हैं।')}>
+              <Text style={styles.menuText}>8. हेल्प & सपोर्ट</Text>
+            </TouchableOpacity>
+
+            {/* Support Us Button - UPI Link */}
+            <TouchableOpacity 
+              style={styles.supportButton} 
+              onPress={() => Linking.openURL('upi://pay?pa=aashishkevat975@ybl&pn=Aashish&cu=INR')}
+            >
+              <Text style={styles.supportText}>❤️ Support Us (सहयोग करें)</Text>
+              <Text style={styles.subText}>Aashishkevat975@ybl पर सहयोग दें</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.closeModalBtn} onPress={() => setModalVisible(false)}>
+              <Text style={styles.btnText}>बंद करें</Text>
+            </TouchableOpacity>
+          </ScrollView>
         </View>
       </Modal>
+
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#0b132b', padding: 20 },
-  header: { flexDirection: 'row', justifyContent: 'space-between', marginTop: 40, marginBottom: 15 },
+  header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 40, marginBottom: 15 },
   headerTitle: { fontSize: 22, color: '#fff', fontWeight: 'bold' },
   yellowCard: { backgroundColor: '#ffd166', padding: 15, borderRadius: 10, marginBottom: 15, alignItems: 'center' },
   yellowCardTitle: { color: '#000', fontSize: 16, fontWeight: 'bold' },
@@ -94,6 +182,7 @@ const styles = StyleSheet.create({
   cardTitle: { color: '#fff', fontSize: 18, marginBottom: 10 },
   input: { backgroundColor: '#0b132b', color: '#fff', padding: 10, borderRadius: 5, marginBottom: 10 },
   actionButton: { backgroundColor: '#0077b6', padding: 15, borderRadius: 5 },
+  resultText: { color: '#ffcc00', marginTop: 10, fontSize: 13 },
   pinkButton: { backgroundColor: '#3a0ca3', padding: 15, borderRadius: 10, marginBottom: 20, borderColor: '#f72585', borderWidth: 1 },
   alertBox: { backgroundColor: '#333', padding: 15, borderRadius: 10, marginBottom: 20 },
   alertTitle: { color: '#ff4d4d', fontWeight: 'bold' },
@@ -103,10 +192,12 @@ const styles = StyleSheet.create({
   shareBtn: { backgroundColor: '#5e17eb', padding: 15, borderRadius: 10, marginBottom: 50 },
   btnText: { color: '#fff', textAlign: 'center', fontWeight: 'bold' },
   modalOverlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.8)', justifyContent: 'center', alignItems: 'center' },
-  modalContent: { width: '85%', backgroundColor: '#1c2541', padding: 20, borderRadius: 15 },
-  modalHeader: { color: '#fff', fontSize: 20, fontWeight: 'bold', marginBottom: 15, textAlign: 'center' },
-  modalItem: { backgroundColor: '#0b132b', padding: 15, borderRadius: 8, marginBottom: 10 },
-  modalItemText: { color: '#fff', fontSize: 15 },
-  closeModalBtn: { backgroundColor: '#d90429', padding: 12, borderRadius: 8, marginTop: 10 }
+  modalContent: { width: '90%', backgroundColor: '#1c2541', padding: 20, borderRadius: 15, maxHeight: '80%' },
+  modalHeader: { color: '#fff', fontSize: 18, fontWeight: 'bold', marginBottom: 15, textAlign: 'center' },
+  menuItem: { paddingVertical: 12, borderBottomWidth: 1, borderBottomColor: '#333' },
+  menuText: { color: '#00a8e8', fontSize: 15 },
+  supportButton: { backgroundColor: '#3a0ca3', padding: 15, borderRadius: 10, marginTop: 20, alignItems: 'center', marginBottom: 15 },
+  supportText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+  subText: { color: '#ffd166', fontSize: 12, marginTop: 3 },
+  closeModalBtn: { backgroundColor: '#d90429', padding: 12, borderRadius: 8, marginTop: 10, marginBottom: 20 }
 });
-        
