@@ -2,6 +2,7 @@
   "expo": {
     "name": "Fraud Face Detector",
     "slug": "fraud-face-detector",
+    "owner": "aashishkevat69795-team",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,6 +24,11 @@
     },
     "plugins": [
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "77882092-d47e-4b18-b4b5-7075aef7a58a"
+      }
+    }
   }
 }
