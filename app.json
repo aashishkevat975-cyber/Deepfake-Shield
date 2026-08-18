@@ -5,16 +5,16 @@
     "owner": "aashishkevat69795s-team",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./icon.png",
     "userInterfaceStyle": "dark",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#0b132b"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./icon.png",
         "backgroundColor": "#0b132b"
       },
       "package": "com.aashishkevat975.fraudfacedetector"
