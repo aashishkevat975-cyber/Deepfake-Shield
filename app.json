@@ -1,28 +1,22 @@
 {
-  "expo": {
-    "name": "Fraud Face Detector",
-    "slug": "frode-face-detector",
-    "owner": "aashishkevat69795s-team",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./icon.png",
-    "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0b132b"
+  "cli": {
+    "version": ">= 12.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./icon.png",
-        "backgroundColor": "#0b132b"
-      },
-      "package": "com.aashishkevat975.fraudfacedetector"
+    "preview": {
+      "distribution": "internal"
     },
-    "extra": {
-      "eas": {
-        "projectId": "77882092-d47e-4b18-b4b5-7075aef7a58a"
+    "production": {
+      "android": {
+        "buildType": "app-bundle"
       }
     }
+  },
+  "submit": {
+    "production": {}
   }
 }
