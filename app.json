@@ -16,7 +16,13 @@
       }
     },
     "plugins": [
-      "expo-router"
+      "expo-router",
+      [
+        "react-native-google-mobile-ads",
+        {
+          "androidAppId": "ca-app-pub-1675872523636331~1932744321"
+        }
+      ]
     ],
     "extra": {
       "eas": {
