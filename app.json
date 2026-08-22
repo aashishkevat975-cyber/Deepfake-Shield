@@ -7,6 +7,11 @@
     "icon": "./icon.png",
     "android": {
       "package": "com.aashish.fraudfacedetector"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "यहाँ_अपना_नया_project_id_डालें"
+      }
     }
   }
 }
