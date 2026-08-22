@@ -10,8 +10,13 @@
     },
     "extra": {
       "eas": {
-        "projectId": "यहाँ_अपना_नया_project_id_डालें"
+        "projectId": "914e41f4-765f-4bc1-b7ca-9f045f6ac506"
       }
-    }
+    },
+    "sdkVersion": "51.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ]
   }
 }
