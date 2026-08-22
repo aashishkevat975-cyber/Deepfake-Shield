@@ -2,29 +2,41 @@
   "expo": {
     "name": "Fraud Face Detector",
     "slug": "frode-face-detector",
-    "owner": "aashishkevatnews-team",
     "version": "1.0.0",
     "orientation": "portrait",
-    "userInterfaceStyle": "light",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0b132b"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.aashish.fraudfacedetector"
+    },
     "android": {
-      "package": "com.aashish.fraudfacedetector",
-      "config": {
-        "googleMobileAdsAppId": "ca-app-pub-1675872523636331~1932744321"
-      }
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0b132b"
+      },
+      "package": "com.aashish.fraudfacedetector"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-router",
       [
         "react-native-google-mobile-ads",
         {
-          "androidAppId": "ca-app-pub-1675872523636331~1932744321"
+          "androidAppId": "ca-app-pub-1675872523636331~3716599285",
+          "iosAppId": "ca-app-pub-1675872523636331~3716599285"
         }
       ]
-    ],
-    "extra": {
-      "eas": {
-        "projectId": "dc374037-937e-4b84-9976-d1b16ccbf3d1"
-      }
-    }
+    ]
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-1675872523636331~3716599285",
+    "ios_app_id": "ca-app-pub-1675872523636331~3716599285"
   }
 }
