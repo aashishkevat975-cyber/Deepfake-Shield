@@ -10,14 +10,17 @@
       "supportsTablet": true
     },
     "android": {
-      "package": "com.aashish.fraudfacedetector"
+      "package": "com.aashish.fraudfacedetector",
+      "config": {
+        "googleMobileAdsAppId": "ca-app-pub-1675872523636331~1932744321"
+      }
     },
     "plugins": [
       "expo-router"
     ],
     "extra": {
       "eas": {
-        "projectId": "dc374037-937e-4b84-9976-d1b16ccbf3d1"
+        "projectId": "dc374037-937e-4b84-9976-d1b16ccbf3c"
       }
     }
   }
