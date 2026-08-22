@@ -1,11 +1,9 @@
 {
   "expo": {
     "name": "Fraud Face Detector",
-    "slug": "frode-face-detector",
+    "slug": "fraud-face-detector",
     "owner": "aashishkevatnews-team",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "userInterfaceStyle": "dark",
     "android": {
       "package": "com.aashish.fraudfacedetector"
     },
