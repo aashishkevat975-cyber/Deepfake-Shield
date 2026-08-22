@@ -2,6 +2,7 @@
   "expo": {
     "name": "Fraud Face Detector",
     "slug": "frode-face-detector",
+    "owner": "aashishdev99s-team",
     "version": "1.0.0",
     "icon": "./icon.png",
     "android": {
