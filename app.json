@@ -4,13 +4,8 @@
     "slug": "frode-face-detector",
     "owner": "aashishkevatnews-team",
     "version": "1.0.0",
-    "orientation": "portrait",
-    "userInterfaceStyle": "dark",
     "android": {
-      "package": "com.aashish.fraudfacedetector",
-      "adaptiveIcon": {
-        "backgroundColor": "#0b132b"
-      }
+      "package": "com.aashish.fraudfacedetector"
     },
     "extra": {
       "eas": {
