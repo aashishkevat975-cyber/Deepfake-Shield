@@ -25,18 +25,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": [
-      [
-        "react-native-google-mobile-ads",
-        {
-          "androidAppId": "ca-app-pub-1675872523636331~3716599285",
-          "iosAppId": "ca-app-pub-1675872523636331~3716599285"
-        }
-      ]
-    ]
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-1675872523636331~3716599285",
-    "ios_app_id": "ca-app-pub-1675872523636331~3716599285"
+    "extra": {
+      "eas": {
+        "projectId": "dc374037-937e-4b84-9976-d1b16ccbf3d1"
+      }
+    }
   }
 }
