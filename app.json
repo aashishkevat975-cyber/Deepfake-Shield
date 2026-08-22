@@ -2,16 +2,11 @@
   "expo": {
     "name": "Fraud Face Detector",
     "slug": "frode-face-detector",
-    "owner": "aashishkevatnews-team",
+    "owner": "aashish_dev99",
     "version": "1.0.0",
     "icon": "./icon.png",
     "android": {
       "package": "com.aashish.fraudfacedetector"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "dc374037-937e-4b84-9976-d1b16ccbf3d1"
-      }
     }
   }
 }
