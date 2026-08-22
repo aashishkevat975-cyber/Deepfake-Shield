@@ -4,6 +4,7 @@
     "slug": "frode-face-detector",
     "owner": "aashishkevatnews-team",
     "version": "1.0.0",
+    "icon": "./icon.png",
     "android": {
       "package": "com.aashish.fraudfacedetector"
     },
