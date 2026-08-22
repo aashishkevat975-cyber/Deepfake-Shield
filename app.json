@@ -5,6 +5,11 @@
     "owner": "aashishdev99s-team",
     "version": "1.0.0",
     "icon": "./icon.png",
+    "splash": {
+      "image": "./icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
     "android": {
       "package": "com.aashish.fraudfacedetector"
     },
