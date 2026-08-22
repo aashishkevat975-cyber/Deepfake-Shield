@@ -13,9 +13,6 @@
     "android": {
       "package": "com.aashish.fraudfacedetector"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
     "extra": {
       "eas": {
         "projectId": "dc374037-937e-4b84-9976-d1b16ccbf3d1"
