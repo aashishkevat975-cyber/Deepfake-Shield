@@ -5,22 +5,12 @@
     "owner": "aashishkevatnews-team",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0b132b"
-    },
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.aashish.fraudfacedetector"
     },
     "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#0b132b"
-      },
       "package": "com.aashish.fraudfacedetector"
     },
     "web": {
