@@ -1,45 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView, Alert, Modal, Linking } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { BannerAd, BannerAdSize, InterstitialAd, AdEventType } from 'react-native-google-mobile-ads';
-
-const bannerAdUnitId = 'ca-app-pub-1675872523636331/3716599285';
-const interstitialAdUnitId = 'ca-app-pub-1675872523636331/4910261459';
-
-const interstitial = InterstitialAd.createForAdRequest(interstitialAdUnitId, {
-  requestNonPersonalizedAdsOnly: true,
-});
 
 export default function App() {
   const [modalVisible, setModalVisible] = useState(false);
   const [message, setMessage] = useState('');
   const [reportText, setReportText] = useState('');
   const [scanResult, setScanResult] = useState('यह संदेश सामान्य लग रहा है, फिर भी सावधान रहें।');
-  const [interstitialLoaded, setInterstitialLoaded] = useState(false);
-
-  useEffect(() => {
-    const unsubscribeLoaded = interstitial.addLoadedEventListener(() => {
-      setInterstitialLoaded(true);
-    });
-
-    const unsubscribeClosed = interstitial.addClosedEventListener(() => {
-      setInterstitialLoaded(false);
-      interstitial.load();
-    });
-
-    interstitial.load();
-
-    return () => {
-      unsubscribeLoaded();
-      unsubscribeClosed();
-    };
-  }, []);
-
-  const showInterstitial = () => {
-    if (interstitialLoaded) {
-      interstitial.show();
-    }
-  };
 
   const handleShare = () => {
     const link = "https://play.google.com/store/apps/details?id=com.aashish.fraudfacedetector"; 
@@ -47,7 +14,6 @@ export default function App() {
   };
 
   const handleCheckScam = () => {
-    showInterstitial();
     if (!message.trim()) {
       Alert.alert('कृपया संदेश दर्ज करें');
       return;
@@ -60,7 +26,6 @@ export default function App() {
   };
 
   const handleReport = () => {
-    showInterstitial();
     if (!reportText.trim()) {
       Alert.alert('कृपया डिटेल्स लिखें');
       return;
@@ -71,7 +36,6 @@ export default function App() {
 
   return (
     <ScrollView style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
         <Text style={styles.headerTitle}>Fraud Face Detector</Text>
         <TouchableOpacity onPress={() => setModalVisible(true)}>
@@ -79,13 +43,11 @@ export default function App() {
         </TouchableOpacity>
       </View>
 
-      {/* SBI EarnKaro Link - Profit Wala */}
       <TouchableOpacity style={styles.yellowCard} onPress={() => Linking.openURL('https://bitli.in/60RynOW')}>
         <Text style={styles.yellowCardTitle}>💳 SBI क्रेडिट कार्ड (₹2240 प्रॉफिट)</Text>
         <Text style={styles.yellowCardSub}>यहाँ क्लिक करें और क्रेडिट कार्ड के लिए अप्लाई करें!</Text>
       </TouchableOpacity>
 
-      {/* Main Buttons */}
       <TouchableOpacity style={styles.blueButton} onPress={() => Linking.openURL('https://cybercrime.gov.in')}>
         <Text style={styles.btnText}>🌐 साइबर पोर्टल</Text>
       </TouchableOpacity>
@@ -96,7 +58,6 @@ export default function App() {
         <Text style={styles.btnText}>🏦 बैंक ब्लॉक लिस्ट</Text>
       </TouchableOpacity>
 
-      {/* AI Scam Detector */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>🤖 AI & स्कैम सुरक्षा</Text>
         <TextInput
@@ -121,7 +82,6 @@ export default function App() {
         <Text style={styles.alertText}>आजकल 'जॉब फ़्रॉड' और फर्जी कॉल से सावधान रहें!</Text>
       </View>
 
-      {/* Report Section */}
       <View style={styles.card}>
         <Text style={styles.cardTitle}>📝 फ़्रॉड रिपोर्ट दर्ज करें</Text>
         <TextInput
@@ -137,12 +97,10 @@ export default function App() {
         </TouchableOpacity>
       </View>
 
-      {/* Share Button */}
       <TouchableOpacity style={styles.shareBtn} onPress={handleShare}>
         <Text style={styles.btnText}>📤 ऐप दोस्तों को शेयर करें</Text>
       </TouchableOpacity>
 
-      {/* Settings Modal */}
       <Modal visible={modalVisible} transparent={true} animationType="slide">
         <View style={styles.modalOverlay}>
           <ScrollView style={styles.modalContent}>
@@ -167,7 +125,6 @@ export default function App() {
               <Text style={styles.menuText}>6. दोस्तों के साथ शेयर करें</Text>
             </TouchableOpacity>
 
-            {/* Support Us Button - UPI Link */}
             <TouchableOpacity style={styles.supportButton} onPress={() => Linking.openURL('upi://pay?pa=aashishkevat975@ybl&pn=Aashish&cu=INR')}>
               <Text style={styles.supportText}>❤️ Support Us (सहयोग दें)</Text>
               <Text style={styles.subText}>Aashishkevat975@ybl पर सहयोग दें</Text>
@@ -179,17 +136,6 @@ export default function App() {
           </ScrollView>
         </View>
       </Modal>
-
-      {/* Banner Ad at bottom */}
-      <View style={{ alignItems: 'center', marginTop: 20, marginBottom: 20 }}>
-        <BannerAd
-          unitId={bannerAdUnitId}
-          size={BannerAdSize.ANCHORED_ADAPTIVE_BANNER}
-          requestOptions={{
-            requestNonPersonalizedAdsOnly: true,
-          }}
-        />
-      </View>
     </ScrollView>
   );
 }
@@ -206,14 +152,14 @@ const styles = StyleSheet.create({
   purpleButton: { backgroundColor: '#6a0dad', padding: 15, borderRadius: 10, marginBottom: 15, alignItems: 'center' },
   card: { backgroundColor: '#1c2541', padding: 15, borderRadius: 10, marginBottom: 15 },
   cardTitle: { color: '#fff', fontSize: 18, marginBottom: 10, fontWeight: 'bold' },
-  input: { backgroundColor: '#0b132b', color: '#fff', padding: 12, borderRadius: 8, marginBottom: 10, borderWidth: 1, borderColor: '#72585' },
+  input: { backgroundColor: '#0b132b', color: '#fff', padding: 12, borderRadius: 8, marginBottom: 10, borderWidth: 1, borderColor: '#333' },
   actionButton: { backgroundColor: '#0077b6', padding: 12, borderRadius: 8, alignItems: 'center' },
   resultText: { color: '#ffcc00', marginTop: 10, fontSize: 14 },
   pinkButton: { backgroundColor: '#3a0ca3', padding: 15, borderRadius: 10, marginBottom: 15, alignItems: 'center' },
-  alertBox: { backgroundColor: '#333', padding: 15, borderRadius: 10, marginBottom: 15, borderWidth: 1, borderColor: '#333' },
+  alertBox: { backgroundColor: '#333', padding: 15, borderRadius: 10, marginBottom: 15 },
   alertTitle: { color: '#ff4d4d', fontWeight: 'bold', fontSize: 15 },
   alertText: { color: '#fff', marginTop: 5 },
-  inputArea: { backgroundColor: '#0b132b', color: '#fff', height: 80, padding: 10, borderRadius: 8, marginBottom: 10, borderWidth: 1, borderColor: '#72585' },
+  inputArea: { backgroundColor: '#0b132b', color: '#fff', height: 80, padding: 10, borderRadius: 8, marginBottom: 10, borderWidth: 1, borderColor: '#333' },
   greenButton: { backgroundColor: '#2d6a4f', padding: 12, borderRadius: 8, alignItems: 'center' },
   shareBtn: { backgroundColor: '#5e17eb', padding: 15, borderRadius: 10, marginBottom: 20, alignItems: 'center' },
   btnText: { color: '#fff', textAlign: 'center', fontWeight: 'bold' },
@@ -227,4 +173,4 @@ const styles = StyleSheet.create({
   subText: { color: '#ffd166', fontSize: 12, marginTop: 3 },
   closeModalBtn: { backgroundColor: '#d90429', padding: 12, borderRadius: 8, marginTop: 20, marginBottom: 20 }
 });
-      
+  
