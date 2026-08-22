@@ -6,16 +6,6 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "userInterfaceStyle": "dark",
-    "icon": "./icon.png",
-    "splash": {
-      "image": "./icon.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0b132b"
-    },
-    "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.aashish.fraudfacedetector"
-    },
     "android": {
       "package": "com.aashish.fraudfacedetector"
     },
